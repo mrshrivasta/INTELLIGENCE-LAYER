@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { supabase } from "@/lib/supabase/client";
+import { createClient } from "@/lib/supabase/client";
 import { Brain, TrendingUp, Award, Target } from "lucide-react";
 import { DeveloperWatermark } from "@/components/DeveloperWatermark";
 import { AIChatbot } from "@/components/AIChatbot";
@@ -25,6 +25,7 @@ export default function AnalyticsPage() {
   }, []);
 
   async function loadAnalytics() {
+    const supabase = createClient();
     const { data: { user } } = await supabase.auth.getUser();
     
     if (user) {
