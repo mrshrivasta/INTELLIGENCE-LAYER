@@ -2,17 +2,11 @@
 
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { sampleUserProfile } from "@/lib/sample-data";
 import {
   Brain,
-  Sparkles,
-  TrendingUp,
-  Target,
-  Zap,
-  Cpu,
   BarChart3,
   Compass,
   FileQuestion,
@@ -20,29 +14,14 @@ import {
   Mic,
   Volume2,
   Settings,
-  BookOpen,
   Award,
   Clock,
   ArrowRight,
   Lightbulb,
-  Shield,
   MessageSquare,
   Bell,
-  Users,
-  HelpCircle,
-  Mail,
-  Home,
-  Info,
-  Lock,
-  UserPlus,
-  LogIn,
-  Cookie,
-  LayoutDashboard,
-  Star,
-  CheckCircle,
-  Activity,
-  Network,
-  Briefcase,
+  Sparkles,
+  Zap,
 } from "lucide-react";
 import { DeveloperWatermark } from "@/components/DeveloperWatermark";
 import { AIChatbot } from "@/components/AIChatbot";
@@ -74,10 +53,10 @@ export default function HomePage() {
   }, []);
 
   const quickStats = [
-    { label: "Learning Streak", value: "24 days", icon: Target, color: "text-emerald-600" },
-    { label: "Skills Mastered", value: "12", icon: Award, color: "text-violet-600" },
-    { label: "Study Time", value: "48h", icon: Clock, color: "text-blue-600" },
-    { label: "AI Score", value: "87%", icon: Brain, color: "text-fuchsia-600" },
+    { label: "Learning Streak", value: "24 days", icon: Zap, color: "text-amber-500", bg: "bg-amber-500/10" },
+    { label: "Skills Mastered", value: "12", icon: Award, color: "text-violet-600", bg: "bg-violet-600/10" },
+    { label: "Study Time", value: "48h", icon: Clock, color: "text-blue-600", bg: "bg-blue-600/10" },
+    { label: "AI Score", value: "87%", icon: Brain, color: "text-fuchsia-600", bg: "bg-fuchsia-600/10" },
   ];
 
   const aiFeatures = [
@@ -125,47 +104,18 @@ export default function HomePage() {
     },
   ];
 
-  const allPages = [
-    { name: "Home", href: "/", icon: Home, category: "Main" },
-    { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard, category: "Main" },
-    { name: "Overview", href: "/overview", icon: Activity, category: "Learning" },
-    { name: "Analytics", href: "/analytics", icon: BarChart3, category: "Learning" },
-    { name: "Assessment", href: "/assessment", icon: FileQuestion, category: "Learning" },
-    { name: "Guidance", href: "/guidance", icon: Compass, category: "Learning" },
-    { name: "Roadmap", href: "/roadmap", icon: Map, category: "Learning" },
-    { name: "Features", href: "/features", icon: Star, category: "Info" },
-    { name: "About", href: "/about", icon: Info, category: "Info" },
-    { name: "How It Works", href: "/how-it-works", icon: CheckCircle, category: "Info" },
-    { name: "Contact", href: "/contact", icon: Mail, category: "Info" },
-    { name: "Help", href: "/help", icon: HelpCircle, category: "Support" },
-    { name: "FAQ", href: "/help", icon: MessageSquare, category: "Support" },
-    { name: "Profile", href: "/profile", icon: Users, category: "Account" },
-    { name: "Settings", href: "/settings", icon: Settings, category: "Account" },
-    { name: "Onboarding", href: "/onboarding", icon: Target, category: "Account" },
-    { name: "Login", href: "/login", icon: LogIn, category: "Auth" },
-    { name: "Sign Up", href: "/signup", icon: UserPlus, category: "Auth" },
-    { name: "Forgot Password", href: "/forgot-password", icon: Lock, category: "Auth" },
-    { name: "Verify Email", href: "/verify-email", icon: Mail, category: "Auth" },
-    { name: "Privacy Policy", href: "/privacy", icon: Shield, category: "Legal" },
-    { name: "Terms & Conditions", href: "/terms", icon: FileQuestion, category: "Legal" },
-    { name: "Cookie Policy", href: "/cookies", icon: Cookie, category: "Legal" },
-    { name: "Security", href: "/security", icon: Lock, category: "Legal" },
-    { name: "Admin", href: "/admin", icon: Briefcase, category: "Admin" },
-  ];
-
-  const categories = ["Main", "Learning", "Info", "Support", "Account", "Auth", "Legal", "Admin"];
-
   return (
-    <div className="min-h-screen bg-white">
-      <header className="sticky top-0 z-50 border-b bg-white">
+    <div className="min-h-screen bg-slate-50">
+      {/* Header */}
+      <header className="sticky top-0 z-50 border-b border-white/20 bg-white/80 backdrop-blur-xl supports-[backdrop-filter]:bg-white/60">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 lg:px-8">
           <div className="flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-purple-600">
+            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-violet-600 to-fuchsia-600 shadow-lg shadow-violet-500/20">
               <Brain className="h-5 w-5 text-white" />
             </div>
             <div>
-              <h1 className="text-base font-semibold text-gray-900">
-                AI Intelligence Layer
+              <h1 className="text-base font-bold text-slate-900">
+                Orchids AI
               </h1>
             </div>
           </div>
@@ -174,7 +124,7 @@ export default function HomePage() {
             <Button
               variant="ghost"
               size="sm"
-              className="text-gray-600 hover:text-gray-900"
+              className="text-slate-600 hover:text-slate-900 hover:bg-slate-100"
               onClick={() => setShowNotifications(!showNotifications)}
             >
               <Bell className="h-4 w-4" />
@@ -182,18 +132,18 @@ export default function HomePage() {
             <Button
               variant="ghost"
               size="sm"
-              className="text-gray-600 hover:text-gray-900"
+              className="text-slate-600 hover:text-slate-900 hover:bg-slate-100"
               onClick={() => setShowChatbot(!showChatbot)}
             >
               <MessageSquare className="h-4 w-4" />
             </Button>
             <Link href="/settings">
-              <Button variant="ghost" size="sm" className="text-gray-600 hover:text-gray-900">
+              <Button variant="ghost" size="sm" className="text-slate-600 hover:text-slate-900 hover:bg-slate-100">
                 <Settings className="h-4 w-4" />
               </Button>
             </Link>
             <Link href="/profile">
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-900 text-xs font-medium text-white cursor-pointer">
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-slate-800 to-slate-900 text-xs font-medium text-white shadow-md cursor-pointer ring-2 ring-white hover:ring-violet-200 transition-all">
                 {profile.userId.charAt(0).toUpperCase()}
               </div>
             </Link>
@@ -203,74 +153,106 @@ export default function HomePage() {
 
       <main className="relative mx-auto max-w-7xl px-6 py-12 lg:px-8">
         {/* Hero section */}
-        <div className="mb-12">
-          <div className="mb-6">
-            <div className="mb-3 flex items-center gap-2">
-              <Badge className="rounded-md bg-gray-100 px-2 py-1 text-xs font-normal text-gray-700 border-0">
+        <div className="relative isolate overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900 via-violet-950 to-slate-900 px-6 pt-16 shadow-2xl sm:px-16 md:pt-24 lg:flex lg:gap-x-20 lg:px-24 lg:pt-0 mb-12">
+          <svg
+            viewBox="0 0 1024 1024"
+            className="absolute left-1/2 top-1/2 -z-10 h-[64rem] w-[64rem] -translate-y-1/2 [mask-image:radial-gradient(closest-side,white,transparent)] sm:left-full sm:-ml-80 lg:left-1/2 lg:ml-0 lg:-translate-x-1/2 lg:translate-y-0"
+            aria-hidden="true"
+          >
+            <circle cx={512} cy={512} r={512} fill="url(#759c1415-0410-454c-8f7c-9a820de03641)" fillOpacity="0.7" />
+            <defs>
+              <radialGradient id="759c1415-0410-454c-8f7c-9a820de03641">
+                <stop stopColor="#7775D6" />
+                <stop offset={1} stopColor="#E935C1" />
+              </radialGradient>
+            </defs>
+          </svg>
+          <div className="mx-auto max-w-md text-center lg:mx-0 lg:flex-auto lg:py-24 lg:text-left">
+             <div className="mb-6 flex items-center justify-center lg:justify-start gap-2">
+              <Badge className="rounded-full bg-white/10 px-3 py-1 text-xs font-medium text-white backdrop-blur-sm border-0">
                 {profile.targetRole}
               </Badge>
-              <Badge className="rounded-md bg-gray-100 px-2 py-1 text-xs font-normal text-gray-700 border-0">
+              <Badge className="rounded-full bg-emerald-500/20 px-3 py-1 text-xs font-medium text-emerald-300 backdrop-blur-sm border-0 flex items-center gap-1">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                </span>
                 AI Active
               </Badge>
             </div>
-            <h2 className="text-4xl font-semibold text-gray-900 mb-3">
+            <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
               Welcome back, {profile.userId}
+              <br />
+              <span className="text-violet-300">Ready to level up?</span>
             </h2>
-            <p className="text-lg text-gray-600">
-              Track your progress and explore learning tools
+            <p className="mt-6 text-lg leading-8 text-gray-300">
+              {aiInsight || "Analyzing your learning patterns..."}
             </p>
-          </div>
-
-          <div className="grid grid-cols-2 gap-4 lg:grid-cols-4 mb-8">
-            {quickStats.map((stat, i) => {
-              const Icon = stat.icon;
-              return (
-                <div key={i} className="border rounded-lg p-5 bg-white hover:border-gray-900 transition-colors">
-                  <div className="flex items-center justify-between mb-3">
-                    <Icon className="h-5 w-5 text-gray-400" />
-                  </div>
-                  <p className="text-2xl font-semibold text-gray-900 mb-1">{stat.value}</p>
-                  <p className="text-sm text-gray-600">{stat.label}</p>
-                </div>
-              );
-            })}
-          </div>
-
-          <div className="flex flex-col sm:flex-row gap-3">
-            <Link href="/dashboard" className="flex-1">
-              <Button size="lg" className="w-full bg-gray-900 hover:bg-gray-800 text-white">
-                Go to Dashboard
-                <ArrowRight className="ml-2 h-4 w-4" />
+            <div className="mt-10 flex items-center justify-center gap-x-6 lg:justify-start">
+              <Link href="/dashboard">
+                <Button size="lg" className="bg-white text-slate-900 hover:bg-slate-100 font-semibold shadow-lg shadow-white/10">
+                  Go to Dashboard
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-white/20 bg-white/5 text-white hover:bg-white/10 backdrop-blur-sm"
+                onClick={() => setVoiceActive(!voiceActive)}
+              >
+                {voiceActive ? <Volume2 className="mr-2 h-4 w-4" /> : <Mic className="mr-2 h-4 w-4" />}
+                {voiceActive ? "Listening..." : "Voice Assistant"}
               </Button>
-            </Link>
-            <Button
-              size="lg"
-              variant="outline"
-              className="flex-1 border-gray-300 hover:bg-gray-50"
-              onClick={() => setVoiceActive(!voiceActive)}
-            >
-              {voiceActive ? <Volume2 className="mr-2 h-4 w-4" /> : <Mic className="mr-2 h-4 w-4" />}
-              {voiceActive ? "Voice Active" : "Voice Assistant"}
-            </Button>
+            </div>
           </div>
+        </div>
+
+        {/* Quick Stats */}
+        <div className="grid grid-cols-2 gap-4 lg:grid-cols-4 mb-12">
+          {quickStats.map((stat, i) => {
+            const Icon = stat.icon;
+            return (
+              <div key={i} className="group relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 transition-all hover:shadow-lg hover:-translate-y-1">
+                <div className={`absolute right-4 top-4 h-12 w-12 rounded-full ${stat.bg} opacity-20 transition-transform group-hover:scale-150 group-hover:opacity-30`} />
+                <Icon className={`h-8 w-8 ${stat.color} mb-4 relative z-10`} />
+                <p className="text-3xl font-bold text-slate-900 mb-1 relative z-10">{stat.value}</p>
+                <p className="text-sm font-medium text-slate-500 relative z-10">{stat.label}</p>
+              </div>
+            );
+          })}
         </div>
 
         {/* AI Features */}
         <div className="mb-12">
-          <div className="mb-6">
-            <h3 className="text-2xl font-semibold text-gray-900 mb-2">Features</h3>
-            <p className="text-base text-gray-600">Explore AI-powered learning tools</p>
+          <div className="mb-8 flex items-end justify-between">
+            <div>
+              <h3 className="text-2xl font-bold text-slate-900 mb-2 flex items-center gap-2">
+                <Sparkles className="h-5 w-5 text-violet-600" />
+                AI Tools
+              </h3>
+              <p className="text-slate-600">Explore your personalized AI-powered learning suite</p>
+            </div>
+            <Link href="/features" className="text-sm font-semibold text-violet-600 hover:text-violet-700 hidden sm:block">
+              View all features &rarr;
+            </Link>
           </div>
 
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {aiFeatures.map((feature, i) => {
               const Icon = feature.icon;
               return (
                 <Link key={i} href={feature.href}>
-                  <div className="group border rounded-lg p-6 bg-white hover:border-gray-900 transition-colors">
-                    <Icon className="h-6 w-6 text-gray-900 mb-4" />
-                    <h4 className="text-base font-semibold text-gray-900 mb-2">{feature.title}</h4>
-                    <p className="text-sm text-gray-600">{feature.desc}</p>
+                  <div className="group h-full rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all hover:shadow-lg hover:border-violet-200">
+                    <div className={`mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br ${feature.gradient} text-white shadow-md transition-transform group-hover:scale-110 group-hover:rotate-3`}>
+                      <Icon className="h-6 w-6" />
+                    </div>
+                    <h4 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-violet-600 transition-colors">
+                      {feature.title}
+                    </h4>
+                    <p className="text-sm text-slate-600 leading-relaxed">
+                      {feature.desc}
+                    </p>
                   </div>
                 </Link>
               );
@@ -279,75 +261,38 @@ export default function HomePage() {
         </div>
 
         {/* Progress card */}
-        <div className="border rounded-lg p-6 bg-white mb-12">
-          <div className="flex items-start justify-between mb-4">
-            <div>
-              <h4 className="text-lg font-semibold text-gray-900 mb-1">Current Progress</h4>
-              <p className="text-sm text-gray-600">React Advanced Patterns</p>
-            </div>
-            <Link href="/overview">
-              <Button variant="ghost" size="sm" className="text-gray-600 hover:text-gray-900">
-                View All <ArrowRight className="ml-1 h-4 w-4" />
-              </Button>
-            </Link>
-          </div>
-          <Progress value={67} className="h-2 bg-gray-100 mb-2" />
-          <div className="flex items-center justify-between text-xs text-gray-500">
-            <span>67% Complete</span>
-            <span>2 weeks remaining</span>
-          </div>
-        </div>
-
-        {/* All Pages Directory */}
-        <div className="border-t pt-12">
-          <div className="mb-8">
-            <h3 className="text-2xl font-semibold text-gray-900 mb-2">All Pages</h3>
-            <p className="text-base text-gray-600">Navigate to any section of the platform</p>
-          </div>
-
-          <div className="space-y-8">
-            {categories.map((category) => {
-              const pagesInCategory = allPages.filter(p => p.category === category);
-              if (pagesInCategory.length === 0) return null;
-
-              return (
-                <div key={category}>
-                  <h4 className="text-sm font-semibold text-gray-900 mb-3 uppercase tracking-wide">
-                    {category}
-                  </h4>
-                  <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
-                    {pagesInCategory.map((page, i) => {
-                      const Icon = page.icon;
-                      return (
-                        <Link key={i} href={page.href}>
-                          <div className="group flex items-center gap-3 border rounded-lg p-3 bg-white hover:border-gray-900 transition-colors">
-                            <Icon className="h-4 w-4 text-gray-400 flex-shrink-0" />
-                            <p className="text-sm font-medium text-gray-700 group-hover:text-gray-900">{page.name}</p>
-                          </div>
-                        </Link>
-                      );
-                    })}
-                  </div>
+        <div className="relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
+          <div className="absolute top-0 right-0 -mt-4 -mr-4 h-32 w-32 rounded-full bg-gradient-to-br from-violet-600/10 to-fuchsia-600/10 blur-2xl" />
+          
+          <div className="relative">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-4">
+              <div>
+                <div className="flex items-center gap-2 mb-1">
+                  <h4 className="text-xl font-bold text-slate-900">Current Focus</h4>
+                  <Badge variant="outline" className="border-violet-200 text-violet-700 bg-violet-50">High Priority</Badge>
                 </div>
-              );
-            })}
+                <p className="text-slate-600">React Advanced Patterns & Performance</p>
+              </div>
+              <Link href="/overview">
+                <Button variant="outline" className="hover:bg-slate-50">
+                  Continue Learning <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
+            </div>
+            
+            <div className="space-y-2">
+              <div className="flex justify-between text-sm font-medium">
+                <span className="text-slate-700">Progress</span>
+                <span className="text-violet-600">67%</span>
+              </div>
+              <Progress value={67} className="h-3 bg-slate-100" />
+              <div className="flex justify-between text-xs text-slate-500 mt-2">
+                <span>12 of 18 modules completed</span>
+                <span>Est. 2 weeks remaining</span>
+              </div>
+            </div>
           </div>
         </div>
-
-        {/* Footer */}
-        <footer className="mt-16 border-t pt-8 pb-8">
-          <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
-            <div className="flex items-center gap-2 text-sm text-gray-600">
-              <span>© 2025 AI Intelligence Layer</span>
-            </div>
-            <div className="flex gap-6 text-sm text-gray-600">
-              <Link href="/privacy" className="hover:text-gray-900 transition-colors">Privacy</Link>
-              <Link href="/terms" className="hover:text-gray-900 transition-colors">Terms</Link>
-              <Link href="/security" className="hover:text-gray-900 transition-colors">Security</Link>
-              <Link href="/help" className="hover:text-gray-900 transition-colors">Help</Link>
-            </div>
-          </div>
-        </footer>
       </main>
 
       {showChatbot && <AIChatbot onClose={() => setShowChatbot(false)} />}
