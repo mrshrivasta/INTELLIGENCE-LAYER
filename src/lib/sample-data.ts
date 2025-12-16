@@ -1,0 +1,91 @@
+import { UserProfile } from './types';
+
+export const sampleUserProfile: UserProfile = {
+  userId: 'user-001',
+  userType: 'college_student',
+  educationLevel: '3rd Year B.Tech',
+  domain: 'Computer Science',
+  primaryGoal: 'placement',
+  skillLevel: 'intermediate',
+  learningPreference: 'practice-heavy',
+  consistencyScore: 'medium',
+  testScoreHistory: [
+    {
+      testId: 'test-001',
+      testName: 'Data Structures Quiz 1',
+      score: 72,
+      maxScore: 100,
+      date: '2024-11-01',
+      topics: ['Arrays', 'Linked Lists'],
+    },
+    {
+      testId: 'test-002',
+      testName: 'Algorithms Assessment',
+      score: 65,
+      maxScore: 100,
+      date: '2024-11-15',
+      topics: ['Sorting', 'Searching'],
+    },
+    {
+      testId: 'test-003',
+      testName: 'Data Structures Quiz 2',
+      score: 78,
+      maxScore: 100,
+      date: '2024-12-01',
+      topics: ['Trees', 'Graphs'],
+    },
+    {
+      testId: 'test-004',
+      testName: 'System Design Basics',
+      score: 58,
+      maxScore: 100,
+      date: '2024-12-08',
+      topics: ['System Design', 'Scalability'],
+    },
+    {
+      testId: 'test-005',
+      testName: 'DSA Mock Interview',
+      score: 80,
+      maxScore: 100,
+      date: '2024-12-14',
+      topics: ['Data Structures', 'Algorithms'],
+    },
+  ],
+  topicAccuracyMap: [
+    { topic: 'Data Structures', accuracy: 76, totalAttempts: 45 },
+    { topic: 'Algorithms', accuracy: 68, totalAttempts: 38 },
+    { topic: 'System Design', accuracy: 42, totalAttempts: 12 },
+    { topic: 'Web Development', accuracy: 82, totalAttempts: 25 },
+    { topic: 'Databases', accuracy: 71, totalAttempts: 20 },
+    { topic: 'Operating Systems', accuracy: 55, totalAttempts: 15 },
+  ],
+  weakAreas: ['System Design', 'Operating Systems', 'Algorithms'],
+  strongAreas: ['Web Development', 'Data Structures', 'Databases'],
+  improvementTrend: 'improving',
+  hoursPerWeek: 15,
+  goalTimeline: 'medium_term',
+  backgroundKnowledge: 'cs_background',
+  targetRole: 'Full Stack Developer',
+};
+
+export const availableFields = [
+  'Web Development',
+  'Machine Learning',
+  'Cyber Security',
+  'Data Science',
+  'Cloud Computing',
+  'DevOps',
+  'Mobile Development',
+  'Blockchain',
+];
+
+export const availableRoles: Record<string, string[]> = {
+  'Web Development': ['Frontend Developer', 'Backend Developer', 'Full Stack Developer', 'UI/UX Engineer'],
+  'Machine Learning': ['ML Engineer', 'Data Scientist', 'AI Research Engineer', 'MLOps Engineer'],
+  'Cyber Security': ['Security Analyst', 'Penetration Tester', 'SOC Analyst', 'Security Engineer'],
+  'Data Science': ['Data Analyst', 'Data Scientist', 'Business Intelligence Analyst', 'Analytics Engineer'],
+  'Cloud Computing': ['Cloud Engineer', 'Solutions Architect', 'Cloud Administrator', 'SRE'],
+  'DevOps': ['DevOps Engineer', 'Platform Engineer', 'Release Engineer', 'Infrastructure Engineer'],
+  'Mobile Development': ['iOS Developer', 'Android Developer', 'React Native Developer', 'Flutter Developer'],
+  'Blockchain': ['Blockchain Developer', 'Smart Contract Developer', 'DeFi Developer', 'Web3 Engineer'],
+};
