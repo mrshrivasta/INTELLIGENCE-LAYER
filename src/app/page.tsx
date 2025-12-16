@@ -34,7 +34,11 @@ import {
   Map,
   Sparkles,
   GraduationCap,
+  Shield,
+  UserCircle,
 } from "lucide-react";
+import { DeveloperWatermark } from "@/components/DeveloperWatermark";
+import Link from "next/link";
 
 export default function Home() {
   const [profile] = useState(sampleUserProfile);
@@ -63,17 +67,29 @@ export default function Home() {
               <p className="text-xs text-slate-500">Education & Career Platform</p>
             </div>
           </div>
-          <div className="flex items-center gap-3">
-            <div className="hidden items-center gap-2 rounded-full bg-gradient-to-r from-violet-100 to-fuchsia-100 px-4 py-2 sm:flex">
-              <Sparkles className="h-4 w-4 text-violet-600" />
-              <span className="text-sm font-medium text-violet-900">
-                Personalized Learning Active
-              </span>
+            <div className="flex items-center gap-3">
+              <div className="hidden items-center gap-2 rounded-full bg-gradient-to-r from-violet-100 to-fuchsia-100 px-4 py-2 sm:flex">
+                <Sparkles className="h-4 w-4 text-violet-600" />
+                <span className="text-sm font-medium text-violet-900">
+                  Personalized Learning Active
+                </span>
+              </div>
+              <Link href="/security">
+                <Button variant="outline" size="sm" className="gap-2">
+                  <Shield className="h-4 w-4" />
+                  <span className="hidden sm:inline">Security</span>
+                </Button>
+              </Link>
+              <Link href="/profile">
+                <Button variant="outline" size="sm" className="gap-2">
+                  <UserCircle className="h-4 w-4" />
+                  <span className="hidden sm:inline">Profile</span>
+                </Button>
+              </Link>
+              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-violet-500 to-fuchsia-500 text-sm font-bold text-white shadow-md">
+                {profile.userId.charAt(0).toUpperCase()}
+              </div>
             </div>
-            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-violet-500 to-fuchsia-500 text-sm font-bold text-white shadow-md">
-              {profile.userId.charAt(0).toUpperCase()}
-            </div>
-          </div>
         </div>
       </header>
 
@@ -232,8 +248,9 @@ export default function Home() {
               Modular • Config-driven • Extensible • Backward-compatible
             </p>
           </div>
-        </footer>
-      </main>
-    </div>
-  );
-}
+          </footer>
+        </main>
+        <DeveloperWatermark />
+      </div>
+    );
+  }
