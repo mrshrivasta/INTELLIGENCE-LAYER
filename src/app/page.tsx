@@ -156,52 +156,44 @@ export default function HomePage() {
   const categories = ["Main", "Learning", "Info", "Support", "Account", "Auth", "Legal", "Admin"];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-950 relative overflow-hidden">
-      {/* Animated background effects */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-violet-900/20 via-transparent to-transparent"></div>
-      <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10"></div>
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-violet-500/10 rounded-full blur-3xl animate-pulse"></div>
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-fuchsia-500/10 rounded-full blur-3xl animate-pulse delay-700"></div>
-      
-      <header className="sticky top-0 z-50 border-b border-white/5 bg-slate-950/60 backdrop-blur-2xl">
-        <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6 lg:px-8">
-          <div className="flex items-center gap-4">
-            <div className="relative flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-violet-600 via-fuchsia-600 to-pink-600 shadow-2xl shadow-violet-500/50">
-              <Brain className="h-7 w-7 text-white animate-pulse" />
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-violet-600 via-fuchsia-600 to-pink-600 opacity-40 blur-2xl"></div>
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-purple-50/30 to-gray-50">
+      <header className="sticky top-0 z-50 border-b border-gray-200 bg-white/80 backdrop-blur-xl">
+        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 lg:px-8">
+          <div className="flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-purple-600 to-purple-700 shadow-sm">
+              <Brain className="h-5 w-5 text-white" />
             </div>
             <div>
-              <h1 className="text-xl font-black tracking-tight text-white">
+              <h1 className="text-base font-bold tracking-tight text-gray-900">
                 AI Intelligence Layer
               </h1>
-              <p className="text-xs font-medium text-violet-300">Advanced Learning Platform 2025</p>
             </div>
           </div>
           
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
             <Button
               variant="ghost"
               size="sm"
-              className="gap-2 text-white hover:bg-white/10 hover:text-violet-300 transition-all"
+              className="gap-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100"
               onClick={() => setShowNotifications(!showNotifications)}
             >
-              <Bell className="h-5 w-5" />
+              <Bell className="h-4 w-4" />
             </Button>
             <Button
               variant="ghost"
               size="sm"
-              className="gap-2 text-white hover:bg-white/10 hover:text-violet-300 transition-all"
+              className="gap-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100"
               onClick={() => setShowChatbot(!showChatbot)}
             >
-              <MessageSquare className="h-5 w-5" />
+              <MessageSquare className="h-4 w-4" />
             </Button>
             <Link href="/settings">
-              <Button variant="ghost" size="sm" className="gap-2 text-white hover:bg-white/10 hover:text-violet-300 transition-all">
-                <Settings className="h-5 w-5" />
+              <Button variant="ghost" size="sm" className="gap-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100">
+                <Settings className="h-4 w-4" />
               </Button>
             </Link>
             <Link href="/profile">
-              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-violet-600 to-fuchsia-600 text-base font-black text-white shadow-xl ring-2 ring-violet-400/30 hover:ring-violet-400/60 transition-all cursor-pointer">
+              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-purple-100 text-sm font-semibold text-purple-700 hover:bg-purple-200 transition-all cursor-pointer">
                 {profile.userId.charAt(0).toUpperCase()}
               </div>
             </Link>
@@ -209,73 +201,69 @@ export default function HomePage() {
         </div>
       </header>
 
-      <main className="relative mx-auto max-w-7xl px-6 py-12 lg:px-8">
+      <main className="relative mx-auto max-w-7xl px-6 py-8 lg:px-8">
         {/* Hero section */}
-        <div className="mb-12 overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-r from-violet-600/10 via-fuchsia-600/10 to-pink-600/10 p-10 backdrop-blur-2xl shadow-2xl">
-          <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
+        <div className="mb-8 overflow-hidden rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
             <div className="flex-1">
-              <div className="mb-4 flex items-center gap-3">
-                <Badge className="gap-1.5 bg-emerald-500/20 text-emerald-300 border-emerald-500/40 px-3 py-1 text-xs font-semibold">
-                  <Sparkles className="h-3.5 w-3.5" />
+              <div className="mb-4 flex items-center gap-2">
+                <Badge className="gap-1.5 bg-emerald-50 text-emerald-700 border-emerald-200 px-2.5 py-0.5 text-xs font-medium">
+                  <Sparkles className="h-3 w-3" />
                   AI Active
                 </Badge>
-                <Badge className="gap-1.5 bg-violet-500/20 text-violet-300 border-violet-500/40 px-3 py-1 text-xs font-semibold">
-                  <Target className="h-3.5 w-3.5" />
+                <Badge className="gap-1.5 bg-purple-50 text-purple-700 border-purple-200 px-2.5 py-0.5 text-xs font-medium">
+                  <Target className="h-3 w-3" />
                   {profile.targetRole}
                 </Badge>
-                <Badge className="gap-1.5 bg-blue-500/20 text-blue-300 border-blue-500/40 px-3 py-1 text-xs font-semibold">
-                  <Network className="h-3.5 w-3.5" />
-                  Connected
-                </Badge>
               </div>
-              <h2 className="text-4xl font-black text-white lg:text-5xl mb-3">
-                Welcome back, <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 via-fuchsia-400 to-pink-400">{profile.userId}</span>
+              <h2 className="text-3xl font-bold text-gray-900 lg:text-4xl mb-2">
+                Welcome back, {profile.userId}
               </h2>
-              <p className="text-xl text-slate-300 font-medium">
+              <p className="text-base text-gray-600">
                 Your AI-powered learning companion is ready to accelerate your growth
               </p>
               
               {aiInsight && (
-                <div className="mt-6 flex items-start gap-3 rounded-2xl bg-gradient-to-r from-cyan-500/10 to-blue-500/10 p-5 border border-cyan-500/20 shadow-lg">
-                  <Cpu className="h-6 w-6 text-cyan-400 mt-0.5 flex-shrink-0 animate-pulse" />
+                <div className="mt-4 flex items-start gap-3 rounded-xl bg-blue-50 p-4 border border-blue-100">
+                  <Cpu className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
                   <div className="flex-1">
-                    <p className="text-sm font-bold text-cyan-300 mb-1">AI Insight</p>
-                    <p className="text-base text-slate-200 font-medium">{aiInsight}</p>
+                    <p className="text-xs font-semibold text-blue-900 mb-0.5">AI Insight</p>
+                    <p className="text-sm text-gray-700">{aiInsight}</p>
                   </div>
                 </div>
               )}
             </div>
             
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-3">
               <Button
-                size="lg"
-                className="gap-2 bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-500 hover:to-fuchsia-500 text-white shadow-2xl shadow-violet-500/50 px-8 py-6 text-base font-bold transition-all hover:scale-105"
+                size="default"
+                className="gap-2 bg-purple-600 hover:bg-purple-700 text-white px-6"
                 onClick={() => setVoiceActive(!voiceActive)}
               >
-                {voiceActive ? <Volume2 className="h-6 w-6" /> : <Mic className="h-6 w-6" />}
+                {voiceActive ? <Volume2 className="h-4 w-4" /> : <Mic className="h-4 w-4" />}
                 {voiceActive ? "Voice Active" : "Activate Voice AI"}
               </Button>
               <Link href="/dashboard">
-                <Button size="lg" variant="outline" className="w-full gap-2 border-white/30 text-white hover:bg-white/10 px-8 py-6 text-base font-bold transition-all hover:scale-105">
-                  <BookOpen className="h-6 w-6" />
+                <Button size="default" variant="outline" className="w-full gap-2 border-gray-300 text-gray-700 hover:bg-gray-50 px-6">
+                  <BookOpen className="h-4 w-4" />
                   Go to Dashboard
                 </Button>
               </Link>
             </div>
           </div>
 
-          <div className="mt-8 grid grid-cols-2 gap-5 lg:grid-cols-4">
+          <div className="mt-6 grid grid-cols-2 gap-4 lg:grid-cols-4">
             {quickStats.map((stat, i) => {
               const Icon = stat.icon;
               return (
-                <Card key={i} className="border-white/10 bg-gradient-to-br from-white/5 to-white/10 p-5 backdrop-blur-xl shadow-lg hover:shadow-2xl transition-all hover:scale-105">
-                  <div className="flex items-center gap-4">
-                    <div className={`rounded-xl bg-gradient-to-br p-3 shadow-lg ${stat.color === 'text-emerald-600' ? 'from-emerald-500/20 to-emerald-600/30' : stat.color === 'text-violet-600' ? 'from-violet-500/20 to-violet-600/30' : stat.color === 'text-blue-600' ? 'from-blue-500/20 to-blue-600/30' : 'from-fuchsia-500/20 to-fuchsia-600/30'}`}>
-                      <Icon className={`h-6 w-6 ${stat.color}`} />
+                <Card key={i} className="border-gray-200 bg-gray-50 p-4 hover:shadow-md transition-shadow">
+                  <div className="flex items-center gap-3">
+                    <div className={`rounded-lg p-2 ${stat.color === 'text-emerald-600' ? 'bg-emerald-100' : stat.color === 'text-violet-600' ? 'bg-purple-100' : stat.color === 'text-blue-600' ? 'bg-blue-100' : 'bg-pink-100'}`}>
+                      <Icon className={`h-5 w-5 ${stat.color}`} />
                     </div>
                     <div>
-                      <p className="text-xs text-slate-400 font-medium">{stat.label}</p>
-                      <p className="text-2xl font-black text-white">{stat.value}</p>
+                      <p className="text-xs text-gray-600">{stat.label}</p>
+                      <p className="text-xl font-bold text-gray-900">{stat.value}</p>
                     </div>
                   </div>
                 </Card>
@@ -285,30 +273,26 @@ export default function HomePage() {
         </div>
 
         {/* AI Features */}
-        <div className="mb-12">
-          <div className="flex items-center justify-between mb-6">
+        <div className="mb-8">
+          <div className="flex items-center justify-between mb-5">
             <div>
-              <h3 className="text-3xl font-black text-white mb-2">AI-Powered Features</h3>
-              <p className="text-base text-slate-400 font-medium">Revolutionary learning tools powered by advanced AI</p>
+              <h3 className="text-2xl font-bold text-gray-900 mb-1">AI-Powered Features</h3>
+              <p className="text-sm text-gray-600">Revolutionary learning tools powered by advanced AI</p>
             </div>
-            <Badge className="gap-1.5 bg-fuchsia-500/20 text-fuchsia-300 border-fuchsia-500/40 px-4 py-2 text-sm font-bold">
-              <Zap className="h-4 w-4" />
-              2025 Edition
-            </Badge>
           </div>
 
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {aiFeatures.map((feature, i) => {
               const Icon = feature.icon;
               return (
                 <Link key={i} href={feature.href}>
-                  <Card className="group cursor-pointer overflow-hidden border-white/10 bg-gradient-to-br from-white/5 to-white/10 p-8 backdrop-blur-xl transition-all hover:scale-105 hover:border-white/30 hover:bg-white/15 hover:shadow-2xl hover:shadow-violet-500/30">
-                    <div className={`mb-5 inline-flex rounded-2xl bg-gradient-to-br ${feature.gradient} p-4 shadow-2xl group-hover:scale-110 transition-transform`}>
-                      <Icon className="h-7 w-7 text-white" />
+                  <Card className="group cursor-pointer overflow-hidden border-gray-200 bg-white p-6 transition-all hover:shadow-lg">
+                    <div className="mb-4 inline-flex rounded-xl bg-purple-100 p-3">
+                      <Icon className="h-6 w-6 text-purple-600" />
                     </div>
-                    <h4 className="mb-3 text-xl font-black text-white">{feature.title}</h4>
-                    <p className="text-sm text-slate-400 font-medium mb-4">{feature.desc}</p>
-                    <div className="flex items-center gap-2 text-sm font-bold text-violet-400 opacity-0 transition-opacity group-hover:opacity-100">
+                    <h4 className="mb-2 text-lg font-semibold text-gray-900">{feature.title}</h4>
+                    <p className="text-sm text-gray-600 mb-3">{feature.desc}</p>
+                    <div className="flex items-center gap-1.5 text-sm font-medium text-purple-600 opacity-0 transition-opacity group-hover:opacity-100">
                       Explore Now <ArrowRight className="h-4 w-4" />
                     </div>
                   </Card>
@@ -319,60 +303,60 @@ export default function HomePage() {
         </div>
 
         {/* Progress card */}
-        <Card className="border-white/10 bg-gradient-to-r from-violet-600/10 via-fuchsia-600/10 to-pink-600/10 p-8 backdrop-blur-xl shadow-xl mb-12">
-          <div className="flex items-start gap-6">
-            <div className="rounded-2xl bg-gradient-to-br from-violet-600 to-fuchsia-600 p-4 shadow-2xl">
-              <TrendingUp className="h-8 w-8 text-white" />
+        <Card className="border-gray-200 bg-white p-6 shadow-sm mb-8">
+          <div className="flex items-start gap-5">
+            <div className="rounded-xl bg-purple-100 p-3">
+              <TrendingUp className="h-6 w-6 text-purple-600" />
             </div>
             <div className="flex-1">
-              <h4 className="text-2xl font-black text-white mb-3">Your Learning Progress</h4>
-              <p className="text-base text-slate-300 mb-5 font-medium">Currently mastering: React Advanced Patterns</p>
-              <Progress value={67} className="h-3 bg-white/10" />
-              <div className="mt-3 flex items-center justify-between text-sm text-slate-400 font-medium">
+              <h4 className="text-xl font-semibold text-gray-900 mb-2">Your Learning Progress</h4>
+              <p className="text-sm text-gray-600 mb-4">Currently mastering: React Advanced Patterns</p>
+              <Progress value={67} className="h-2 bg-gray-100" />
+              <div className="mt-2 flex items-center justify-between text-xs text-gray-500">
                 <span>67% Complete</span>
                 <span>Est. 2 weeks remaining</span>
               </div>
             </div>
             <Link href="/overview">
-              <Button variant="ghost" size="sm" className="gap-2 text-white hover:bg-white/10 font-bold">
-                View All <ArrowRight className="h-5 w-5" />
+              <Button variant="ghost" size="sm" className="gap-2 text-purple-600 hover:text-purple-700 hover:bg-purple-50">
+                View All <ArrowRight className="h-4 w-4" />
               </Button>
             </Link>
           </div>
         </Card>
 
         {/* All Pages Directory */}
-        <div className="mt-16 border-t border-white/10 pt-12">
-          <div className="mb-8 text-center">
-            <h3 className="text-3xl font-black text-white mb-3">Platform Directory</h3>
-            <p className="text-base text-slate-400 font-medium">Explore all pages and features available in the platform</p>
+        <div className="mt-12 border-t border-gray-200 pt-8">
+          <div className="mb-6 text-center">
+            <h3 className="text-2xl font-bold text-gray-900 mb-2">Platform Directory</h3>
+            <p className="text-sm text-gray-600">Explore all pages and features available in the platform</p>
           </div>
 
-          <div className="space-y-8">
+          <div className="space-y-6">
             {categories.map((category) => {
               const pagesInCategory = allPages.filter(p => p.category === category);
               if (pagesInCategory.length === 0) return null;
 
               return (
                 <div key={category}>
-                  <h4 className="text-xl font-black text-white mb-4 flex items-center gap-2">
-                    <div className="h-1.5 w-1.5 rounded-full bg-gradient-to-r from-violet-500 to-fuchsia-500"></div>
+                  <h4 className="text-base font-semibold text-gray-900 mb-3 flex items-center gap-2">
+                    <div className="h-1 w-1 rounded-full bg-purple-600"></div>
                     {category}
                   </h4>
-                  <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                  <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
                     {pagesInCategory.map((page, i) => {
                       const Icon = page.icon;
                       return (
                         <Link key={i} href={page.href}>
-                          <Card className="group cursor-pointer border-white/10 bg-gradient-to-br from-white/5 to-white/10 p-5 backdrop-blur-xl transition-all hover:scale-105 hover:border-white/30 hover:bg-white/15 hover:shadow-xl hover:shadow-violet-500/20">
+                          <Card className="group cursor-pointer border-gray-200 bg-white p-4 transition-all hover:shadow-md">
                             <div className="flex items-center gap-3">
-                              <div className="rounded-lg bg-gradient-to-br from-violet-500/20 to-fuchsia-500/20 p-2.5 group-hover:from-violet-500/30 group-hover:to-fuchsia-500/30 transition-all">
-                                <Icon className="h-5 w-5 text-violet-400" />
+                              <div className="rounded-lg bg-gray-100 p-2 group-hover:bg-purple-100 transition-colors">
+                                <Icon className="h-4 w-4 text-gray-600 group-hover:text-purple-600 transition-colors" />
                               </div>
                               <div className="flex-1">
-                                <p className="text-sm font-bold text-white group-hover:text-violet-300 transition-colors">{page.name}</p>
+                                <p className="text-sm font-medium text-gray-900 group-hover:text-purple-600 transition-colors">{page.name}</p>
                               </div>
-                              <ArrowRight className="h-4 w-4 text-slate-500 group-hover:text-violet-400 transition-colors" />
+                              <ArrowRight className="h-4 w-4 text-gray-400 group-hover:text-purple-600 transition-colors" />
                             </div>
                           </Card>
                         </Link>
@@ -386,18 +370,17 @@ export default function HomePage() {
         </div>
 
         {/* Footer */}
-        <footer className="mt-16 border-t border-white/10 pt-10">
-          <div className="flex flex-col items-center justify-between gap-6 sm:flex-row">
-            <div className="flex items-center gap-3 text-sm text-slate-400 font-medium">
-              <Brain className="h-5 w-5 text-violet-400" />
+        <footer className="mt-12 border-t border-gray-200 pt-8">
+          <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
+            <div className="flex items-center gap-2 text-sm text-gray-600">
+              <Brain className="h-4 w-4 text-purple-600" />
               <span>AI Intelligence Layer v2.0</span>
-              <Badge variant="outline" className="border-emerald-500/40 text-emerald-400 font-bold">2025</Badge>
             </div>
-            <div className="flex gap-6 text-sm text-slate-500 font-medium">
-              <Link href="/privacy" className="hover:text-violet-400 transition-colors">Privacy</Link>
-              <Link href="/terms" className="hover:text-violet-400 transition-colors">Terms</Link>
-              <Link href="/security" className="hover:text-violet-400 transition-colors">Security</Link>
-              <Link href="/help" className="hover:text-violet-400 transition-colors">Help</Link>
+            <div className="flex gap-5 text-sm text-gray-600">
+              <Link href="/privacy" className="hover:text-purple-600 transition-colors">Privacy</Link>
+              <Link href="/terms" className="hover:text-purple-600 transition-colors">Terms</Link>
+              <Link href="/security" className="hover:text-purple-600 transition-colors">Security</Link>
+              <Link href="/help" className="hover:text-purple-600 transition-colors">Help</Link>
             </div>
           </div>
         </footer>
