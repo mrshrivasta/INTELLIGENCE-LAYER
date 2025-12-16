@@ -1,8 +1,24 @@
 import { NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
+
+const chatSchema = z.object({
+  message: z.string().min(1, "Message is required"),
+  userId: z.string().optional(),
+});
 
 export async function POST(request: NextRequest) {
   try {
-    const { message, userId } = await request.json();
+    const body = await request.json();
+    const result = chatSchema.safeParse(body);
+
+    if (!result.success) {
+      return NextResponse.json(
+        { error: "Invalid request data", details: result.error.errors },
+        { status: 400 }
+      );
+    }
+
+    const { message } = result.data;
 
     const aiResponses: Record<string, string> = {
       roadmap: "Your personalized roadmap is designed based on your goals. You can view it in the Roadmap section. It includes foundational, intermediate, and advanced phases tailored to your field of interest.",
