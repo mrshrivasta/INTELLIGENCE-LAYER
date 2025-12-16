@@ -156,25 +156,25 @@ export default function HomePage() {
   const categories = ["Main", "Learning", "Info", "Support", "Account", "Auth", "Legal", "Admin"];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-purple-50/30 to-gray-50">
-      <header className="sticky top-0 z-50 border-b border-gray-200 bg-white/80 backdrop-blur-xl">
+    <div className="min-h-screen bg-white">
+      <header className="sticky top-0 z-50 border-b bg-white">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 lg:px-8">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-purple-600 to-purple-700 shadow-sm">
+            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-purple-600">
               <Brain className="h-5 w-5 text-white" />
             </div>
             <div>
-              <h1 className="text-base font-bold tracking-tight text-gray-900">
+              <h1 className="text-base font-semibold text-gray-900">
                 AI Intelligence Layer
               </h1>
             </div>
           </div>
           
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             <Button
               variant="ghost"
               size="sm"
-              className="gap-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100"
+              className="text-gray-600 hover:text-gray-900"
               onClick={() => setShowNotifications(!showNotifications)}
             >
               <Bell className="h-4 w-4" />
@@ -182,18 +182,18 @@ export default function HomePage() {
             <Button
               variant="ghost"
               size="sm"
-              className="gap-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100"
+              className="text-gray-600 hover:text-gray-900"
               onClick={() => setShowChatbot(!showChatbot)}
             >
               <MessageSquare className="h-4 w-4" />
             </Button>
             <Link href="/settings">
-              <Button variant="ghost" size="sm" className="gap-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100">
+              <Button variant="ghost" size="sm" className="text-gray-600 hover:text-gray-900">
                 <Settings className="h-4 w-4" />
               </Button>
             </Link>
             <Link href="/profile">
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-purple-100 text-sm font-semibold text-purple-700 hover:bg-purple-200 transition-all cursor-pointer">
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-900 text-xs font-medium text-white cursor-pointer">
                 {profile.userId.charAt(0).toUpperCase()}
               </div>
             </Link>
@@ -201,101 +201,77 @@ export default function HomePage() {
         </div>
       </header>
 
-      <main className="relative mx-auto max-w-7xl px-6 py-8 lg:px-8">
+      <main className="relative mx-auto max-w-7xl px-6 py-12 lg:px-8">
         {/* Hero section */}
-        <div className="mb-8 overflow-hidden rounded-2xl border border-gray-200 bg-white p-8 shadow-sm">
-          <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
-            <div className="flex-1">
-              <div className="mb-4 flex items-center gap-2">
-                <Badge className="gap-1.5 bg-emerald-50 text-emerald-700 border-emerald-200 px-2.5 py-0.5 text-xs font-medium">
-                  <Sparkles className="h-3 w-3" />
-                  AI Active
-                </Badge>
-                <Badge className="gap-1.5 bg-purple-50 text-purple-700 border-purple-200 px-2.5 py-0.5 text-xs font-medium">
-                  <Target className="h-3 w-3" />
-                  {profile.targetRole}
-                </Badge>
-              </div>
-              <h2 className="text-3xl font-bold text-gray-900 lg:text-4xl mb-2">
-                Welcome back, {profile.userId}
-              </h2>
-              <p className="text-base text-gray-600">
-                Your AI-powered learning companion is ready to accelerate your growth
-              </p>
-              
-              {aiInsight && (
-                <div className="mt-4 flex items-start gap-3 rounded-xl bg-blue-50 p-4 border border-blue-100">
-                  <Cpu className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
-                  <div className="flex-1">
-                    <p className="text-xs font-semibold text-blue-900 mb-0.5">AI Insight</p>
-                    <p className="text-sm text-gray-700">{aiInsight}</p>
-                  </div>
-                </div>
-              )}
+        <div className="mb-12">
+          <div className="mb-6">
+            <div className="mb-3 flex items-center gap-2">
+              <Badge className="rounded-md bg-gray-100 px-2 py-1 text-xs font-normal text-gray-700 border-0">
+                {profile.targetRole}
+              </Badge>
+              <Badge className="rounded-md bg-gray-100 px-2 py-1 text-xs font-normal text-gray-700 border-0">
+                AI Active
+              </Badge>
             </div>
-            
-            <div className="flex flex-col gap-3">
-              <Button
-                size="default"
-                className="gap-2 bg-purple-600 hover:bg-purple-700 text-white px-6"
-                onClick={() => setVoiceActive(!voiceActive)}
-              >
-                {voiceActive ? <Volume2 className="h-4 w-4" /> : <Mic className="h-4 w-4" />}
-                {voiceActive ? "Voice Active" : "Activate Voice AI"}
-              </Button>
-              <Link href="/dashboard">
-                <Button size="default" variant="outline" className="w-full gap-2 border-gray-300 text-gray-700 hover:bg-gray-50 px-6">
-                  <BookOpen className="h-4 w-4" />
-                  Go to Dashboard
-                </Button>
-              </Link>
-            </div>
+            <h2 className="text-4xl font-semibold text-gray-900 mb-3">
+              Welcome back, {profile.userId}
+            </h2>
+            <p className="text-lg text-gray-600">
+              Track your progress and explore learning tools
+            </p>
           </div>
 
-          <div className="mt-6 grid grid-cols-2 gap-4 lg:grid-cols-4">
+          <div className="grid grid-cols-2 gap-4 lg:grid-cols-4 mb-8">
             {quickStats.map((stat, i) => {
               const Icon = stat.icon;
               return (
-                <Card key={i} className="border-gray-200 bg-gray-50 p-4 hover:shadow-md transition-shadow">
-                  <div className="flex items-center gap-3">
-                    <div className={`rounded-lg p-2 ${stat.color === 'text-emerald-600' ? 'bg-emerald-100' : stat.color === 'text-violet-600' ? 'bg-purple-100' : stat.color === 'text-blue-600' ? 'bg-blue-100' : 'bg-pink-100'}`}>
-                      <Icon className={`h-5 w-5 ${stat.color}`} />
-                    </div>
-                    <div>
-                      <p className="text-xs text-gray-600">{stat.label}</p>
-                      <p className="text-xl font-bold text-gray-900">{stat.value}</p>
-                    </div>
+                <div key={i} className="border rounded-lg p-5 bg-white hover:border-gray-900 transition-colors">
+                  <div className="flex items-center justify-between mb-3">
+                    <Icon className="h-5 w-5 text-gray-400" />
                   </div>
-                </Card>
+                  <p className="text-2xl font-semibold text-gray-900 mb-1">{stat.value}</p>
+                  <p className="text-sm text-gray-600">{stat.label}</p>
+                </div>
               );
             })}
+          </div>
+
+          <div className="flex flex-col sm:flex-row gap-3">
+            <Link href="/dashboard" className="flex-1">
+              <Button size="lg" className="w-full bg-gray-900 hover:bg-gray-800 text-white">
+                Go to Dashboard
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </Link>
+            <Button
+              size="lg"
+              variant="outline"
+              className="flex-1 border-gray-300 hover:bg-gray-50"
+              onClick={() => setVoiceActive(!voiceActive)}
+            >
+              {voiceActive ? <Volume2 className="mr-2 h-4 w-4" /> : <Mic className="mr-2 h-4 w-4" />}
+              {voiceActive ? "Voice Active" : "Voice Assistant"}
+            </Button>
           </div>
         </div>
 
         {/* AI Features */}
-        <div className="mb-8">
-          <div className="flex items-center justify-between mb-5">
-            <div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-1">AI-Powered Features</h3>
-              <p className="text-sm text-gray-600">Revolutionary learning tools powered by advanced AI</p>
-            </div>
+        <div className="mb-12">
+          <div className="mb-6">
+            <h3 className="text-2xl font-semibold text-gray-900 mb-2">Features</h3>
+            <p className="text-base text-gray-600">Explore AI-powered learning tools</p>
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {aiFeatures.map((feature, i) => {
               const Icon = feature.icon;
               return (
                 <Link key={i} href={feature.href}>
-                  <Card className="group cursor-pointer overflow-hidden border-gray-200 bg-white p-6 transition-all hover:shadow-lg">
-                    <div className="mb-4 inline-flex rounded-xl bg-purple-100 p-3">
-                      <Icon className="h-6 w-6 text-purple-600" />
-                    </div>
-                    <h4 className="mb-2 text-lg font-semibold text-gray-900">{feature.title}</h4>
-                    <p className="text-sm text-gray-600 mb-3">{feature.desc}</p>
-                    <div className="flex items-center gap-1.5 text-sm font-medium text-purple-600 opacity-0 transition-opacity group-hover:opacity-100">
-                      Explore Now <ArrowRight className="h-4 w-4" />
-                    </div>
-                  </Card>
+                  <div className="group border rounded-lg p-6 bg-white hover:border-gray-900 transition-colors">
+                    <Icon className="h-6 w-6 text-gray-900 mb-4" />
+                    <h4 className="text-base font-semibold text-gray-900 mb-2">{feature.title}</h4>
+                    <p className="text-sm text-gray-600">{feature.desc}</p>
+                  </div>
                 </Link>
               );
             })}
@@ -303,62 +279,51 @@ export default function HomePage() {
         </div>
 
         {/* Progress card */}
-        <Card className="border-gray-200 bg-white p-6 shadow-sm mb-8">
-          <div className="flex items-start gap-5">
-            <div className="rounded-xl bg-purple-100 p-3">
-              <TrendingUp className="h-6 w-6 text-purple-600" />
-            </div>
-            <div className="flex-1">
-              <h4 className="text-xl font-semibold text-gray-900 mb-2">Your Learning Progress</h4>
-              <p className="text-sm text-gray-600 mb-4">Currently mastering: React Advanced Patterns</p>
-              <Progress value={67} className="h-2 bg-gray-100" />
-              <div className="mt-2 flex items-center justify-between text-xs text-gray-500">
-                <span>67% Complete</span>
-                <span>Est. 2 weeks remaining</span>
-              </div>
+        <div className="border rounded-lg p-6 bg-white mb-12">
+          <div className="flex items-start justify-between mb-4">
+            <div>
+              <h4 className="text-lg font-semibold text-gray-900 mb-1">Current Progress</h4>
+              <p className="text-sm text-gray-600">React Advanced Patterns</p>
             </div>
             <Link href="/overview">
-              <Button variant="ghost" size="sm" className="gap-2 text-purple-600 hover:text-purple-700 hover:bg-purple-50">
-                View All <ArrowRight className="h-4 w-4" />
+              <Button variant="ghost" size="sm" className="text-gray-600 hover:text-gray-900">
+                View All <ArrowRight className="ml-1 h-4 w-4" />
               </Button>
             </Link>
           </div>
-        </Card>
+          <Progress value={67} className="h-2 bg-gray-100 mb-2" />
+          <div className="flex items-center justify-between text-xs text-gray-500">
+            <span>67% Complete</span>
+            <span>2 weeks remaining</span>
+          </div>
+        </div>
 
         {/* All Pages Directory */}
-        <div className="mt-12 border-t border-gray-200 pt-8">
-          <div className="mb-6 text-center">
-            <h3 className="text-2xl font-bold text-gray-900 mb-2">Platform Directory</h3>
-            <p className="text-sm text-gray-600">Explore all pages and features available in the platform</p>
+        <div className="border-t pt-12">
+          <div className="mb-8">
+            <h3 className="text-2xl font-semibold text-gray-900 mb-2">All Pages</h3>
+            <p className="text-base text-gray-600">Navigate to any section of the platform</p>
           </div>
 
-          <div className="space-y-6">
+          <div className="space-y-8">
             {categories.map((category) => {
               const pagesInCategory = allPages.filter(p => p.category === category);
               if (pagesInCategory.length === 0) return null;
 
               return (
                 <div key={category}>
-                  <h4 className="text-base font-semibold text-gray-900 mb-3 flex items-center gap-2">
-                    <div className="h-1 w-1 rounded-full bg-purple-600"></div>
+                  <h4 className="text-sm font-semibold text-gray-900 mb-3 uppercase tracking-wide">
                     {category}
                   </h4>
-                  <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+                  <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
                     {pagesInCategory.map((page, i) => {
                       const Icon = page.icon;
                       return (
                         <Link key={i} href={page.href}>
-                          <Card className="group cursor-pointer border-gray-200 bg-white p-4 transition-all hover:shadow-md">
-                            <div className="flex items-center gap-3">
-                              <div className="rounded-lg bg-gray-100 p-2 group-hover:bg-purple-100 transition-colors">
-                                <Icon className="h-4 w-4 text-gray-600 group-hover:text-purple-600 transition-colors" />
-                              </div>
-                              <div className="flex-1">
-                                <p className="text-sm font-medium text-gray-900 group-hover:text-purple-600 transition-colors">{page.name}</p>
-                              </div>
-                              <ArrowRight className="h-4 w-4 text-gray-400 group-hover:text-purple-600 transition-colors" />
-                            </div>
-                          </Card>
+                          <div className="group flex items-center gap-3 border rounded-lg p-3 bg-white hover:border-gray-900 transition-colors">
+                            <Icon className="h-4 w-4 text-gray-400 flex-shrink-0" />
+                            <p className="text-sm font-medium text-gray-700 group-hover:text-gray-900">{page.name}</p>
+                          </div>
                         </Link>
                       );
                     })}
@@ -370,17 +335,16 @@ export default function HomePage() {
         </div>
 
         {/* Footer */}
-        <footer className="mt-12 border-t border-gray-200 pt-8">
+        <footer className="mt-16 border-t pt-8 pb-8">
           <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
             <div className="flex items-center gap-2 text-sm text-gray-600">
-              <Brain className="h-4 w-4 text-purple-600" />
-              <span>AI Intelligence Layer v2.0</span>
+              <span>© 2025 AI Intelligence Layer</span>
             </div>
-            <div className="flex gap-5 text-sm text-gray-600">
-              <Link href="/privacy" className="hover:text-purple-600 transition-colors">Privacy</Link>
-              <Link href="/terms" className="hover:text-purple-600 transition-colors">Terms</Link>
-              <Link href="/security" className="hover:text-purple-600 transition-colors">Security</Link>
-              <Link href="/help" className="hover:text-purple-600 transition-colors">Help</Link>
+            <div className="flex gap-6 text-sm text-gray-600">
+              <Link href="/privacy" className="hover:text-gray-900 transition-colors">Privacy</Link>
+              <Link href="/terms" className="hover:text-gray-900 transition-colors">Terms</Link>
+              <Link href="/security" className="hover:text-gray-900 transition-colors">Security</Link>
+              <Link href="/help" className="hover:text-gray-900 transition-colors">Help</Link>
             </div>
           </div>
         </footer>
