@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Brain, Rocket, Target, TrendingUp, Shield, Users } from "lucide-react";
 import { DeveloperWatermark } from "@/components/DeveloperWatermark";
 
-export default function HomePage() {
+export default function HomeLandingPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
       <nav className="border-b border-white/10 bg-black/20 backdrop-blur-lg">
