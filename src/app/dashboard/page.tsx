@@ -135,6 +135,13 @@ export default function DashboardPage() {
       color: "from-emerald-500 to-teal-600"
     },
     {
+      title: "Group Study",
+      description: "Study with friends",
+      icon: Users,
+      href: "/group-study",
+      color: "from-violet-500 to-fuchsia-600"
+    },
+    {
       title: "Practice",
       description: "Coding challenges & exercises",
       icon: Code2,
@@ -382,9 +389,9 @@ export default function DashboardPage() {
           className="mb-8"
         >
           <div className="flex items-center gap-2 mb-2">
-            <h2 className="text-3xl font-bold text-foreground">
-              Welcome, {profile?.full_name || "Student"}!
-            </h2>
+<h2 className="text-3xl font-bold text-foreground">
+                Welcome back, {profile?.full_name || "Student"}!
+              </h2>
             <Badge className="bg-primary/10 text-primary border-primary/20">
               <Shield className="h-3 w-3 mr-1" />
               Secure

@@ -108,14 +108,18 @@ export default function DeveloperPage() {
               <Mail className="mr-2 h-4 w-4" />
               Contact Me
             </Button>
-            <Button variant="outline" className="border-white/10 bg-white/5 text-white hover:bg-white/10">
-              <Github className="mr-2 h-4 w-4" />
-              GitHub
-            </Button>
-            <Button variant="outline" className="border-white/10 bg-white/5 text-white hover:bg-white/10">
-              <Linkedin className="mr-2 h-4 w-4" />
-              LinkedIn
-            </Button>
+            <a href="https://github.com/karanam-shrivasta" target="_blank" rel="noopener noreferrer">
+              <Button variant="outline" className="border-white/10 bg-white/5 text-white hover:bg-white/10">
+                <Github className="mr-2 h-4 w-4" />
+                GitHub
+              </Button>
+            </a>
+            <a href="https://www.linkedin.com/in/karanam-shrivasta/" target="_blank" rel="noopener noreferrer">
+              <Button variant="outline" className="border-white/10 bg-white/5 text-white hover:bg-white/10">
+                <Linkedin className="mr-2 h-4 w-4" />
+                LinkedIn
+              </Button>
+            </a>
           </div>
         </motion.div>
 

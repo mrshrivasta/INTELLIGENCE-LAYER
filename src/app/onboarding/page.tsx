@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/select";
 import { Card } from "@/components/ui/card";
 import { GraduationCap, ArrowRight, Sparkles, ArrowLeft, CheckCircle2 } from "lucide-react";
-import { supabase } from "@/lib/supabase/client";
+import { createClient } from "@/lib/supabase/client";
 import { DeveloperWatermark } from "@/components/DeveloperWatermark";
 import { motion } from "framer-motion";
 
@@ -51,10 +51,11 @@ export default function OnboardingPage() {
   const handleSubmit = async () => {
     setLoading(true);
     try {
+      const supabase = createClient();
       const { data: { user } } = await supabase.auth.getUser();
       
       if (user) {
-        await supabase.from("user_profiles").upsert({
+        const { error } = await supabase.from("user_profiles").upsert({
           id: user.id,
           email: user.email,
           full_name: formData.fullName,
@@ -69,7 +70,13 @@ export default function OnboardingPage() {
           onboarding_completed: true,
         });
 
-        router.push("/dashboard");
+        if (error) {
+          console.error("Error saving profile:", error);
+        } else {
+          router.push("/dashboard");
+        }
+      } else {
+        router.push("/login");
       }
     } catch (error) {
       console.error("Error saving profile:", error);
@@ -78,12 +85,12 @@ export default function OnboardingPage() {
     }
   };
 
-  const canProceed = () => {
-    if (step === 1) return formData.fullName && formData.educationLevel;
-    if (step === 2) return formData.fieldOfInterest;
-    if (step === 3) return formData.hoursPerWeek && formData.goalTimeline;
-    return false;
-  };
+const canProceed = () => {
+      if (step === 1) return formData.fullName.trim() !== "" && formData.educationLevel !== "";
+      if (step === 2) return formData.fieldOfInterest !== "";
+      if (step === 3) return formData.hoursPerWeek !== "" && formData.goalTimeline !== "";
+      return false;
+    };
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-4">
