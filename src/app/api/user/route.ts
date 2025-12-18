@@ -1,15 +1,26 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
+import { rateLimit, securityHeaders } from '@/lib/security';
 
 export async function GET(request: NextRequest) {
   try {
+    const ip = request.headers.get('x-forwarded-for') || 'anonymous';
+    const { success, remaining } = rateLimit(ip, 30, 60000);
+    
+    if (!success) {
+      return NextResponse.json(
+        { error: 'Too many requests. Please try again later.' },
+        { status: 429, headers: { ...securityHeaders, 'X-RateLimit-Remaining': String(remaining) } }
+      );
+    }
+
     const supabase = await createClient();
     const { data: { user }, error } = await supabase.auth.getUser();
 
     if (error || !user) {
       return NextResponse.json(
         { error: 'Unauthorized', details: error?.message },
-        { status: 401 }
+        { status: 401, headers: securityHeaders }
       );
     }
 

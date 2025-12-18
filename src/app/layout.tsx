@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AI Intelligence Layer - Education & Career Platform",
-  description: "AI-powered learning guidance, assessments, and personalized roadmaps for education and career development",
+  title: "Sveekruth AI - Intelligence Layer for Education",
+  description: "AI-powered learning guidance, assessments, and personalized roadmaps for education and career development. Powered by Sveekruth.",
 };
 
 export default function RootLayout({

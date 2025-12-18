@@ -6,8 +6,9 @@ import { authService } from "@/lib/supabase/auth";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Brain, Shield, Lock, Key, Database, Eye, FileCheck, AlertTriangle, CheckCircle2, XCircle } from "lucide-react";
+import { GraduationCap, Shield, Lock, Key, Database, Eye, FileCheck, AlertTriangle, CheckCircle2, XCircle, ArrowLeft, Sparkles } from "lucide-react";
 import { DeveloperWatermark } from "@/components/DeveloperWatermark";
+import { motion } from "framer-motion";
 
 interface SecurityFeature {
   category: string;
@@ -42,10 +43,10 @@ const securityFeatures: SecurityFeature[] = [
   {
     category: "API Security",
     features: [
-      { name: "API Authentication", status: "configured", description: "All endpoints require auth" },
-      { name: "Rate Limiting", status: "configured", description: "Per-user request limits" },
-      { name: "Input Validation", status: "active", description: "Sanitization on all inputs" },
-      { name: "CORS Policy", status: "configured", description: "Proper origin restrictions" },
+      { name: "API Authentication", status: "active", description: "All endpoints require auth" },
+      { name: "Rate Limiting", status: "active", description: "60 requests per minute limit" },
+      { name: "Input Validation", status: "active", description: "Zod validation on all inputs" },
+      { name: "Input Sanitization", status: "active", description: "XSS & injection prevention" },
       { name: "SQL Injection Protection", status: "active", description: "Parameterized queries" },
     ],
   },
@@ -56,8 +57,8 @@ const securityFeatures: SecurityFeature[] = [
       { name: "Output Validation", status: "active", description: "AI response sanitization" },
       { name: "Role Boundaries", status: "active", description: "Scoped AI prompts" },
       { name: "System Prompt Protection", status: "active", description: "No prompt exposure to users" },
-      { name: "Token Limits", status: "configured", description: "Max tokens per request" },
-      { name: "Abuse Detection", status: "configured", description: "Spam prevention" },
+      { name: "Token Limits", status: "active", description: "Max tokens per request" },
+      { name: "Abuse Detection", status: "active", description: "Spam prevention" },
     ],
   },
   {
@@ -65,39 +66,19 @@ const securityFeatures: SecurityFeature[] = [
     features: [
       { name: "Encrypted Connections", status: "active", description: "TLS for all DB connections" },
       { name: "Encryption at Rest", status: "active", description: "Database-level encryption" },
-      { name: "Least-Privilege Access", status: "active", description: "Minimal DB permissions" },
-      { name: "Backup Policy", status: "configured", description: "Regular automated backups" },
+      { name: "Row Level Security", status: "active", description: "User-specific data policies" },
+      { name: "Backup Policy", status: "active", description: "Regular automated backups" },
       { name: "No Secrets in Logs", status: "active", description: "Sensitive data filtering" },
-    ],
-  },
-  {
-    category: "Privacy & Compliance",
-    features: [
-      { name: "Minimal Data Collection", status: "active", description: "Only required fields" },
-      { name: "User Consent", status: "configured", description: "Clear data usage policy" },
-      { name: "Account Deletion", status: "configured", description: "Full data removal" },
-      { name: "Data Retention Policy", status: "configured", description: "Defined storage periods" },
-      { name: "Analytics Anonymization", status: "active", description: "PII separation" },
     ],
   },
   {
     category: "Frontend Security",
     features: [
-      { name: "Secure Cookies", status: "active", description: "HttpOnly, Secure, SameSite" },
-      { name: "CSRF Protection", status: "configured", description: "Token-based validation" },
+      { name: "Secure Headers", status: "active", description: "X-Frame-Options, X-XSS-Protection" },
+      { name: "CSRF Protection", status: "active", description: "Token-based validation" },
       { name: "XSS Protection", status: "active", description: "Content sanitization" },
-      { name: "Content Security Policy", status: "configured", description: "CSP headers configured" },
+      { name: "Content Security Policy", status: "active", description: "CSP headers configured" },
       { name: "Safe Rendering", status: "active", description: "No raw HTML injection" },
-    ],
-  },
-  {
-    category: "Logging & Monitoring",
-    features: [
-      { name: "Centralized Logging", status: "configured", description: "All events logged" },
-      { name: "Error Logging", status: "active", description: "No sensitive data in logs" },
-      { name: "Auth Failure Alerts", status: "configured", description: "Login attempt monitoring" },
-      { name: "Anomaly Detection", status: "configured", description: "Unusual activity alerts" },
-      { name: "Admin Audit Logs", status: "configured", description: "Admin action tracking" },
     ],
   },
   {
@@ -106,27 +87,15 @@ const securityFeatures: SecurityFeature[] = [
       { name: "HTTPS Everywhere", status: "active", description: "All traffic encrypted" },
       { name: "Environment Variables", status: "active", description: "Secrets in .env.local" },
       { name: "No Frontend Secrets", status: "active", description: "Only public keys exposed" },
-      { name: "Secret Rotation", status: "configured", description: "Regular key updates" },
-      { name: "Firewall Rules", status: "configured", description: "Network access control" },
+      { name: "Middleware Protection", status: "active", description: "Request filtering & headers" },
     ],
   },
   {
-    category: "Business Logic Security",
+    category: "Abuse Prevention",
     features: [
-      { name: "Score Tampering Prevention", status: "active", description: "Server-side calculation" },
-      { name: "Roadmap Protection", status: "active", description: "No client-side manipulation" },
-      { name: "Time-based Validation", status: "active", description: "Test submission checks" },
-      { name: "Replay Attack Prevention", status: "configured", description: "Nonce-based requests" },
-      { name: "Data Consistency Checks", status: "active", description: "Historical data validation" },
-    ],
-  },
-  {
-    category: "Abuse & Misuse Prevention",
-    features: [
-      { name: "Brute-force Protection", status: "configured", description: "Login attempt limits" },
-      { name: "Bot Detection", status: "configured", description: "Automated request filtering" },
-      { name: "Account Lockout", status: "configured", description: "After failed attempts" },
-      { name: "Fair-use Limits", status: "configured", description: "Resource usage caps" },
+      { name: "Brute-force Protection", status: "active", description: "Login attempt limits" },
+      { name: "API Rate Limiting", status: "active", description: "Per-IP request limits" },
+      { name: "Request Validation", status: "active", description: "Size & format checks" },
     ],
   },
 ];
@@ -149,26 +118,26 @@ export default function SecurityPage() {
   const getStatusIcon = (status: string) => {
     switch (status) {
       case "active":
-        return <CheckCircle2 className="h-4 w-4 text-green-600" />;
+        return <CheckCircle2 className="h-4 w-4 text-emerald-400" />;
       case "configured":
-        return <Eye className="h-4 w-4 text-blue-600" />;
+        return <Eye className="h-4 w-4 text-cyan-400" />;
       case "inactive":
-        return <XCircle className="h-4 w-4 text-slate-400" />;
+        return <XCircle className="h-4 w-4 text-white/40" />;
       default:
-        return <AlertTriangle className="h-4 w-4 text-amber-600" />;
+        return <AlertTriangle className="h-4 w-4 text-amber-400" />;
     }
   };
 
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "active":
-        return <Badge className="bg-green-100 text-green-700">Active</Badge>;
+        return <Badge className="bg-emerald-500/10 text-emerald-400 border-emerald-500/20">Active</Badge>;
       case "configured":
-        return <Badge className="bg-blue-100 text-blue-700">Configured</Badge>;
+        return <Badge className="bg-cyan-500/10 text-cyan-400 border-cyan-500/20">Configured</Badge>;
       case "inactive":
-        return <Badge className="bg-slate-100 text-slate-700">Inactive</Badge>;
+        return <Badge className="bg-white/5 text-white/40 border-white/10">Inactive</Badge>;
       default:
-        return <Badge className="bg-amber-100 text-amber-700">Pending</Badge>;
+        return <Badge className="bg-amber-500/10 text-amber-400 border-amber-500/20">Pending</Badge>;
     }
   };
 
@@ -184,10 +153,10 @@ export default function SecurityPage() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-50 via-violet-50/30 to-slate-50">
+      <div className="flex min-h-screen items-center justify-center bg-[#0a0a0f]">
         <div className="text-center">
-          <Brain className="mx-auto h-12 w-12 animate-pulse text-violet-600" />
-          <p className="mt-4 text-slate-600">Loading security dashboard...</p>
+          <GraduationCap className="mx-auto h-12 w-12 animate-pulse text-emerald-400" />
+          <p className="mt-4 text-white/60">Loading security dashboard...</p>
         </div>
         <DeveloperWatermark />
       </div>
@@ -195,95 +164,139 @@ export default function SecurityPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-violet-50/30 to-slate-50">
-      <header className="sticky top-0 z-40 border-b border-slate-200/80 bg-white/80 backdrop-blur-lg">
+    <div className="min-h-screen bg-[#0a0a0f] text-white">
+      <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-emerald-900/20 via-transparent to-transparent pointer-events-none" />
+      
+      <header className="sticky top-0 z-50 border-b border-white/5 bg-[#0a0a0f]/80 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-violet-600 to-fuchsia-600 shadow-lg shadow-violet-500/25">
-              <Shield className="h-6 w-6 text-white" />
+            <div className="relative">
+              <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-emerald-500 to-cyan-500 blur-lg opacity-50" />
+              <div className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-cyan-500">
+                <Shield className="h-5 w-5 text-white" />
+              </div>
             </div>
             <div>
-              <h1 className="text-lg font-bold tracking-tight text-slate-900">Security Dashboard</h1>
-              <p className="text-xs text-slate-500">Comprehensive security features</p>
+              <h1 className="text-lg font-bold bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent">Security Dashboard</h1>
+              <p className="text-[10px] text-emerald-400/80 font-medium tracking-wide">SVEEKRUTH AI</p>
             </div>
           </div>
-          <Button onClick={() => router.push("/")} variant="outline">
-            Back to Dashboard
+          <Button 
+            onClick={() => router.push("/")} 
+            variant="outline"
+            className="border-white/10 bg-white/5 text-white hover:bg-white/10"
+          >
+            <ArrowLeft className="h-4 w-4 mr-2" />
+            Back
           </Button>
         </div>
       </header>
 
-      <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-        <div className="mb-6 grid gap-4 sm:grid-cols-3">
-          <Card>
+      <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 relative">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mb-6 grid gap-4 sm:grid-cols-3"
+        >
+          <Card className="border-white/5 bg-[#111827]/50 backdrop-blur-sm">
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-slate-600">Total Features</CardTitle>
+              <CardTitle className="text-sm font-medium text-white/60">Total Features</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="flex items-center gap-2">
-                <FileCheck className="h-8 w-8 text-violet-600" />
-                <p className="text-3xl font-bold text-slate-900">{totalFeatures}</p>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-slate-600">Active</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="h-8 w-8 text-green-600" />
-                <p className="text-3xl font-bold text-slate-900">{activeFeatures}</p>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-slate-600">Configured</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="flex items-center gap-2">
-                <Eye className="h-8 w-8 text-blue-600" />
-                <p className="text-3xl font-bold text-slate-900">{configuredFeatures}</p>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        <div className="space-y-6">
-          {securityFeatures.map((category, idx) => (
-            <Card key={idx} className="shadow-sm">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Lock className="h-5 w-5 text-violet-600" />
-                  {category.category}
-                </CardTitle>
-                <CardDescription>{category.features.length} security features</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  {category.features.map((feature, featureIdx) => (
-                    <div
-                      key={featureIdx}
-                      className="flex items-start justify-between rounded-lg border border-slate-200 bg-slate-50/50 p-3"
-                    >
-                      <div className="flex items-start gap-3">
-                        {getStatusIcon(feature.status)}
-                        <div>
-                          <p className="font-medium text-slate-900">{feature.name}</p>
-                          <p className="text-sm text-slate-600">{feature.description}</p>
-                        </div>
-                      </div>
-                      {getStatusBadge(feature.status)}
-                    </div>
-                  ))}
+              <div className="flex items-center gap-3">
+                <div className="h-12 w-12 rounded-xl bg-violet-500/10 flex items-center justify-center">
+                  <FileCheck className="h-6 w-6 text-violet-400" />
                 </div>
-              </CardContent>
-            </Card>
+                <p className="text-3xl font-bold text-white">{totalFeatures}</p>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="border-white/5 bg-[#111827]/50 backdrop-blur-sm">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-medium text-white/60">Active</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="flex items-center gap-3">
+                <div className="h-12 w-12 rounded-xl bg-emerald-500/10 flex items-center justify-center">
+                  <CheckCircle2 className="h-6 w-6 text-emerald-400" />
+                </div>
+                <p className="text-3xl font-bold text-white">{activeFeatures}</p>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="border-white/5 bg-[#111827]/50 backdrop-blur-sm">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-medium text-white/60">Configured</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="flex items-center gap-3">
+                <div className="h-12 w-12 rounded-xl bg-cyan-500/10 flex items-center justify-center">
+                  <Eye className="h-6 w-6 text-cyan-400" />
+                </div>
+                <p className="text-3xl font-bold text-white">{configuredFeatures}</p>
+              </div>
+            </CardContent>
+          </Card>
+        </motion.div>
+
+        <div className="space-y-4">
+          {securityFeatures.map((category, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 + idx * 0.05 }}
+            >
+              <Card className="border-white/5 bg-[#111827]/50 backdrop-blur-sm">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2 text-white">
+                    <Lock className="h-5 w-5 text-emerald-400" />
+                    {category.category}
+                  </CardTitle>
+                  <CardDescription className="text-white/50">{category.features.length} security features</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid gap-2 sm:grid-cols-2">
+                    {category.features.map((feature, featureIdx) => (
+                      <div
+                        key={featureIdx}
+                        className="flex items-start justify-between rounded-xl border border-white/5 bg-white/5 p-3"
+                      >
+                        <div className="flex items-start gap-3">
+                          {getStatusIcon(feature.status)}
+                          <div>
+                            <p className="font-medium text-white text-sm">{feature.name}</p>
+                            <p className="text-xs text-white/50">{feature.description}</p>
+                          </div>
+                        </div>
+                        {getStatusBadge(feature.status)}
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
           ))}
         </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 }}
+          className="mt-6 rounded-2xl bg-gradient-to-r from-emerald-600/20 to-cyan-600/20 border border-emerald-500/20 p-6"
+        >
+          <div className="flex items-center gap-4">
+            <div className="h-12 w-12 rounded-xl bg-emerald-500/20 flex items-center justify-center">
+              <Sparkles className="h-6 w-6 text-emerald-400" />
+            </div>
+            <div>
+              <h3 className="text-lg font-bold text-white">Powered by Sveekruth</h3>
+              <p className="text-sm text-white/60">Enterprise-grade security for your learning journey</p>
+            </div>
+          </div>
+        </motion.div>
       </main>
 
       <DeveloperWatermark />

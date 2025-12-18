@@ -1,12 +1,12 @@
 "use client";
 
-import { Code2 } from "lucide-react";
+import { Sparkles } from "lucide-react";
 
 export function DeveloperWatermark() {
   return (
-    <div className="fixed bottom-4 right-4 z-50 flex items-center gap-2 rounded-full bg-gradient-to-r from-violet-600 to-fuchsia-600 px-4 py-2 text-sm font-medium text-white shadow-lg backdrop-blur-sm transition-opacity hover:opacity-90">
-      <Code2 className="h-4 w-4" />
-      <span>Developed by Karanam Shrivasta</span>
+    <div className="fixed bottom-4 right-4 z-50 flex items-center gap-2 rounded-full bg-gradient-to-r from-emerald-600 to-cyan-600 px-4 py-2 text-sm font-semibold text-white shadow-xl shadow-emerald-500/25 backdrop-blur-sm transition-all hover:scale-105 hover:shadow-emerald-500/40">
+      <Sparkles className="h-4 w-4 animate-pulse" />
+      <span>Powered by Sveekruth</span>
     </div>
   );
 }
