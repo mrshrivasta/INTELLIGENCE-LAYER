@@ -117,11 +117,17 @@ export default function AssignmentsPage() {
     }
     setUserId(user.id);
 
-    const { data: profile } = await supabase
+    const { data: profileData } = await supabase
       .from("user_profiles")
-      .select("field_of_interest")
-      .eq("id", user.id)
-      .single();
+      .select("field_of_interest, onboarding_completed")
+      .eq("id", user.id);
+
+    const profile = profileData?.[0];
+    
+    if (profile && !profile.onboarding_completed) {
+      router.push("/onboarding");
+      return;
+    }
 
     if (profile?.field_of_interest) {
       setFieldOfInterest(profile.field_of_interest);

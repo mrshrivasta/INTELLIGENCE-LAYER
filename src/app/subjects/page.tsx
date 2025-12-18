@@ -89,11 +89,17 @@ export default function SubjectsPage() {
     }
     setUserId(user.id);
 
-    const { data: profile } = await supabase
+    const { data: profileArr } = await supabase
       .from("user_profiles")
-      .select("field_of_interest")
-      .eq("id", user.id)
-      .single();
+      .select("field_of_interest, onboarding_completed")
+      .eq("id", user.id);
+
+    const profile = profileArr?.[0];
+
+    if (!profile?.onboarding_completed) {
+      router.push("/onboarding");
+      return;
+    }
 
     if (profile?.field_of_interest) {
       setFieldOfInterest(profile.field_of_interest);

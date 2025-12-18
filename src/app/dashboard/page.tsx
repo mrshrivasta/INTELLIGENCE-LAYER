@@ -82,11 +82,12 @@ export default function DashboardPage() {
       return;
     }
 
-    const { data: profileData } = await supabase
+    const { data: profileArr } = await supabase
       .from("user_profiles")
       .select("*")
-      .eq("id", user.id)
-      .single();
+      .eq("id", user.id);
+
+    const profileData = profileArr?.[0];
 
     if (!profileData || !profileData.onboarding_completed) {
       router.push("/onboarding");

@@ -247,13 +247,14 @@ export default function RoadmapPage() {
       return;
     }
 
-    const { data: profileData } = await supabase
+    const { data: profileArr } = await supabase
       .from("user_profiles")
       .select("*")
-      .eq("id", user.id)
-      .single();
+      .eq("id", user.id);
 
-    if (!profileData) {
+    const profileData = profileArr?.[0];
+
+    if (!profileData?.onboarding_completed) {
       router.push("/onboarding");
       return;
     }
