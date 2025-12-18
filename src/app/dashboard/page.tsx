@@ -26,6 +26,14 @@ import {
   BookOpen,
   ClipboardList,
   Trophy,
+  Gamepad2,
+  Award,
+  Users,
+  Video,
+  Flame,
+  Clock,
+  Layers,
+  Timer,
 } from "lucide-react";
 import { DeveloperWatermark } from "@/components/DeveloperWatermark";
 import { AIChatbot } from "@/components/AIChatbot";
@@ -141,25 +149,81 @@ export default function DashboardPage() {
       color: "from-cyan-500 to-blue-600"
     },
     {
+      title: "Games",
+      description: "Learn while playing",
+      icon: Gamepad2,
+      href: "/games",
+      color: "from-fuchsia-500 to-pink-600"
+    },
+    {
+      title: "Calendar",
+      description: "Schedule study sessions",
+      icon: Clock,
+      href: "/calendar",
+      color: "from-indigo-500 to-blue-600"
+    },
+    {
+      title: "Live Sessions",
+      description: "Join live classes",
+      icon: Video,
+      href: "/live-sessions",
+      color: "from-red-500 to-orange-600"
+    },
+    {
+      title: "Community",
+      description: "Connect with learners",
+      icon: Users,
+      href: "/community",
+      color: "from-teal-500 to-cyan-600"
+    },
+    {
+      title: "Certificates",
+      description: "View your achievements",
+      icon: Award,
+      href: "/certificates",
+      color: "from-amber-500 to-yellow-600"
+    },
+    {
+      title: "Flashcards",
+      description: "Quick revision cards",
+      icon: Layers,
+      href: "/flashcards",
+      color: "from-lime-500 to-green-600"
+    },
+    {
+      title: "Achievements",
+      description: "Track your badges",
+      icon: Trophy,
+      href: "/achievements",
+      color: "from-orange-500 to-red-600"
+    },
+    {
+      title: "Pomodoro",
+      description: "Focus timer",
+      icon: Timer,
+      href: "/pomodoro",
+      color: "from-rose-500 to-pink-600"
+    },
+    {
+      title: "Leaderboard",
+      description: "Compete with others",
+      icon: Flame,
+      href: "/leaderboard",
+      color: "from-yellow-500 to-orange-600"
+    },
+    {
+      title: "Notes",
+      description: "Your study notes",
+      icon: ClipboardList,
+      href: "/notes",
+      color: "from-sky-500 to-blue-600"
+    },
+    {
       title: "Analytics",
       description: "Track your performance",
       icon: BarChart3,
       href: "/analytics",
-      color: "from-amber-500 to-orange-600"
-    },
-    {
-      title: "Roadmap",
-      description: "Your learning path",
-      icon: Map,
-      href: "/roadmap",
-      color: "from-red-500 to-pink-600"
-    },
-    {
-      title: "Profile",
-      description: "View progress and weak topics",
-      icon: User,
-      href: "/profile",
-      color: "from-blue-500 to-indigo-600"
+      color: "from-purple-500 to-violet-600"
     },
     {
       title: "Settings",
