@@ -292,7 +292,7 @@ export default function SecurityPage() {
               <Sparkles className="h-6 w-6 text-emerald-400" />
             </div>
             <div>
-              <h3 className="text-lg font-bold text-white">Powered by Sveekruth</h3>
+              <h3 className="text-lg font-bold text-white">Powered by Shrivasta</h3>
               <p className="text-sm text-white/60">Enterprise-grade security for your learning journey</p>
             </div>
           </div>

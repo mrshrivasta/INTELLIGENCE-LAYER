@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { VisualEditsMessenger } from "orchids-visual-edits";
 import { Footer } from "@/components/Footer";
+import { ThemeProvider } from "@/components/ThemeProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,8 +16,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Sveekruth AI - Intelligence Layer for Education",
-  description: "AI-powered learning guidance, assessments, and personalized roadmaps for education and career development. Powered by Sveekruth.",
+  title: "Shrivasta AI - Intelligence Layer for Education",
+  description: "AI-powered learning guidance, assessments, and personalized roadmaps for education and career development. Created by Karanam Shrivasta.",
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({
@@ -25,14 +29,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
+      <head>
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+      </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col bg-[#0a0a0f] dark:bg-[#0a0a0f] light:bg-gray-50 transition-colors duration-300`}
       >
-        <div className="flex-grow">
-          {children}
-        </div>
-        <Footer />
+        <ThemeProvider>
+          <div className="flex-grow">
+            {children}
+          </div>
+          <Footer />
+        </ThemeProvider>
         <VisualEditsMessenger />
       </body>
     </html>

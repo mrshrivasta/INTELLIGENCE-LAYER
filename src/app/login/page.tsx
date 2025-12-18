@@ -60,7 +60,7 @@ export default function LoginPage() {
               </div>
             </div>
             <CardTitle className="text-2xl font-bold text-white">Welcome Back</CardTitle>
-            <CardDescription className="text-white/50">Sign in to Sveekruth AI Intelligence Layer</CardDescription>
+            <CardDescription className="text-white/50">Sign in to Shrivasta AI Intelligence Layer</CardDescription>
           </CardHeader>
           
           <form onSubmit={handleLogin}>

@@ -49,6 +49,7 @@ export const navigationLinks = [
   { name: "Cookie Policy", href: "/cookies", icon: Cookie, category: "Legal" },
   { name: "Security", href: "/security", icon: Lock, category: "Legal" },
   { name: "Admin", href: "/admin", icon: Briefcase, category: "Admin" },
+  { name: "Developer", href: "/developer", icon: Users, category: "Info" },
 ];
 
 export const categories = ["Main", "Learning", "Info", "Support", "Account", "Auth", "Legal", "Admin"];

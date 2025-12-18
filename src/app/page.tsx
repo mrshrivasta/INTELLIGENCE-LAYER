@@ -29,6 +29,8 @@ import {
   BookOpen,
   Target,
   GraduationCap,
+  Moon,
+  Sun,
 } from "lucide-react";
 import { DeveloperWatermark } from "@/components/DeveloperWatermark";
 import { AIChatbot } from "@/components/AIChatbot";
@@ -42,6 +44,22 @@ export default function HomePage() {
   const [aiInsight, setAiInsight] = useState("Analyzing your learning patterns...");
   const [showChatbot, setShowChatbot] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
+  const [theme, setTheme] = useState<"dark" | "light">("dark");
+
+  useEffect(() => {
+    const stored = localStorage.getItem("theme") as "dark" | "light";
+    if (stored) {
+      setTheme(stored);
+      document.documentElement.classList.toggle("dark", stored === "dark");
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    const newTheme = theme === "dark" ? "light" : "dark";
+    setTheme(newTheme);
+    localStorage.setItem("theme", newTheme);
+    document.documentElement.classList.toggle("dark", newTheme === "dark");
+  };
 
   const insights = [
     "Your React skills improved 23% this week - keep it up!",
@@ -134,7 +152,7 @@ export default function HomePage() {
             </div>
             <div>
               <h1 className="text-lg font-bold bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent">
-                Sveekruth AI
+                Shrivasta AI
               </h1>
               <p className="text-[10px] text-emerald-400/80 font-medium tracking-wide">INTELLIGENCE LAYER</p>
             </div>
@@ -157,6 +175,15 @@ export default function HomePage() {
               onClick={() => setShowChatbot(!showChatbot)}
             >
               <MessageSquare className="h-4 w-4" />
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="text-white/60 hover:text-white hover:bg-white/5"
+              onClick={toggleTheme}
+              title={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+            >
+              {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
             </Button>
             <Link href="/settings">
               <Button variant="ghost" size="sm" className="text-white/60 hover:text-white hover:bg-white/5">
