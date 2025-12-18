@@ -131,17 +131,17 @@ export default function AssignmentsPage() {
       .from("assignments")
       .select(`
         *,
-        subject:subjects(name, color),
+        subject:subjects(name, color, field_of_interest),
         chapter:chapters(name),
         questions(*)
       `)
       .order("created_at", { ascending: false });
 
     if (assignmentsData) {
-      const filtered = assignmentsData.filter((a: Assignment) => {
+      const filtered = assignmentsData.filter((a: Assignment & { subject: { field_of_interest?: string } }) => {
         if (!profile?.field_of_interest) return true;
-        const subjectField = (a as Assignment & { subject: { field_of_interest?: string } }).subject;
-        return true;
+        if (!a.subject?.field_of_interest) return true;
+        return a.subject.field_of_interest.toLowerCase() === profile.field_of_interest.toLowerCase();
       });
       setAssignments(filtered as Assignment[]);
     }

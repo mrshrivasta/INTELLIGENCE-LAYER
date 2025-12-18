@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -48,6 +49,7 @@ interface UserProfile {
 }
 
 export default function HomePage() {
+  const router = useRouter();
   const { theme, toggleTheme } = useTheme();
   const [voiceActive, setVoiceActive] = useState(false);
   const [aiInsight, setAiInsight] = useState("Analyzing your learning patterns...");
@@ -73,7 +75,13 @@ export default function HomePage() {
         .single();
       
       if (profileData) {
+        if (!profileData.onboarding_completed) {
+          router.push("/onboarding");
+          return;
+        }
         setProfile(profileData);
+      } else {
+        router.push("/onboarding");
       }
     }
   }
