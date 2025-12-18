@@ -312,22 +312,67 @@ export default function HomePage() {
           </div>
           
           <div className="hidden lg:flex lg:items-center lg:justify-center lg:flex-1 relative">
-            <div className="relative w-80 h-80">
-              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary/20 to-cyan-500/20 blur-3xl animate-pulse" />
-              <div className="absolute inset-8 rounded-full bg-gradient-to-br from-primary/10 to-cyan-500/10 border border-border flex items-center justify-center">
-                <Brain className="h-24 w-24 text-primary/30" />
-              </div>
-              <div className="absolute top-4 right-8 p-3 rounded-xl bg-card border border-border shadow-xl">
-                <TrendingUp className="h-5 w-5 text-primary" />
-              </div>
-              <div className="absolute bottom-8 left-4 p-3 rounded-xl bg-card border border-border shadow-xl">
-                <Target className="h-5 w-5 text-cyan-500" />
-              </div>
-              <div className="absolute top-1/2 -right-4 p-3 rounded-xl bg-card border border-border shadow-xl">
-                <BookOpen className="h-5 w-5 text-pink-500" />
+              <div className="relative w-80 h-80">
+                <motion.div 
+                  animate={{ scale: [1, 1.1, 1], opacity: [0.5, 0.8, 0.5] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                  className="absolute inset-0 rounded-full bg-gradient-to-br from-primary/20 to-cyan-500/20 blur-3xl" 
+                />
+                <motion.div
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+                  className="absolute inset-4 rounded-full border border-dashed border-primary/20"
+                />
+                <motion.div
+                  animate={{ rotate: -360 }}
+                  transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                  className="absolute inset-12 rounded-full border border-dashed border-cyan-500/20"
+                />
+                <div className="absolute inset-8 rounded-full bg-gradient-to-br from-primary/10 to-cyan-500/10 border border-border flex items-center justify-center">
+                  <motion.div
+                    animate={{ scale: [1, 1.05, 1] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                  >
+                    <Brain className="h-24 w-24 text-primary/30" />
+                  </motion.div>
+                </div>
+                <motion.div 
+                  animate={{ y: [0, -10, 0] }}
+                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                  className="absolute top-4 right-8 p-3 rounded-xl bg-card border border-border shadow-xl"
+                >
+                  <TrendingUp className="h-5 w-5 text-primary" />
+                </motion.div>
+                <motion.div 
+                  animate={{ y: [0, 10, 0] }}
+                  transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+                  className="absolute bottom-8 left-4 p-3 rounded-xl bg-card border border-border shadow-xl"
+                >
+                  <Target className="h-5 w-5 text-cyan-500" />
+                </motion.div>
+                <motion.div 
+                  animate={{ x: [0, 5, 0] }}
+                  transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                  className="absolute top-1/2 -right-4 p-3 rounded-xl bg-card border border-border shadow-xl"
+                >
+                  <BookOpen className="h-5 w-5 text-pink-500" />
+                </motion.div>
+                <motion.div 
+                  animate={{ x: [0, -5, 0], y: [0, 5, 0] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
+                  className="absolute top-12 left-0 p-3 rounded-xl bg-card border border-border shadow-xl"
+                >
+                  <Sparkles className="h-5 w-5 text-amber-500" />
+                </motion.div>
+                <motion.div 
+                  animate={{ scale: [1, 1.2, 1] }}
+                  transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: 0.7 }}
+                  className="absolute bottom-4 right-12 p-2 rounded-lg bg-gradient-to-br from-emerald-500 to-cyan-500 shadow-xl"
+                >
+                  <Zap className="h-4 w-4 text-white" />
+                </motion.div>
               </div>
             </div>
-          </div>
         </motion.div>
 
         <motion.div 

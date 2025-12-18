@@ -23,6 +23,9 @@ import {
   Zap,
   Sun,
   Moon,
+  BookOpen,
+  ClipboardList,
+  Trophy,
 } from "lucide-react";
 import { DeveloperWatermark } from "@/components/DeveloperWatermark";
 import { AIChatbot } from "@/components/AIChatbot";
@@ -49,6 +52,7 @@ export default function DashboardPage() {
   const [showChat, setShowChat] = useState(false);
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
+  const [stats, setStats] = useState({ completed: 0, avgScore: 0, streak: 0, assignments: 0 });
 
   useEffect(() => {
     loadProfile();
@@ -75,6 +79,29 @@ export default function DashboardPage() {
     }
 
     setProfile(profileData);
+
+    const { data: progressData } = await supabase
+      .from("topic_progress")
+      .select("id")
+      .eq("user_id", user.id)
+      .eq("status", "completed");
+
+    const { data: submissionsData } = await supabase
+      .from("assignment_submissions")
+      .select("percentage")
+      .eq("user_id", user.id);
+
+    const avgScore = submissionsData && submissionsData.length > 0
+      ? Math.round(submissionsData.reduce((a, b) => a + (b.percentage || 0), 0) / submissionsData.length)
+      : 0;
+
+    setStats({
+      completed: progressData?.length || 0,
+      avgScore,
+      streak: 24,
+      assignments: submissionsData?.length || 0
+    });
+
     setLoading(false);
   }
 
@@ -86,43 +113,57 @@ export default function DashboardPage() {
 
   const sections = [
     {
-      title: "Overview",
-      description: "View your profile and recent activity",
-      icon: User,
-      href: "/overview",
-      color: "from-cyan-500 to-blue-600"
-    },
-    {
-      title: "Guidance",
-      description: "Get AI-powered learning recommendations",
-      icon: Compass,
-      href: "/guidance",
-      color: "from-violet-500 to-purple-600"
-    },
-    {
-      title: "Assessment",
-      description: "Take adaptive tests and quizzes",
-      icon: FileQuestion,
-      href: "/assessment",
-      color: "from-pink-500 to-rose-600"
-    },
-    {
-      title: "Analytics",
-      description: "Track your performance and progress",
-      icon: BarChart3,
-      href: "/analytics",
+      title: "Subjects",
+      description: "Browse subjects, chapters and topics",
+      icon: BookOpen,
+      href: "/subjects",
       color: "from-emerald-500 to-teal-600"
     },
     {
+      title: "Assignments",
+      description: "Practice quizzes and tests",
+      icon: FileQuestion,
+      href: "/assignments",
+      color: "from-pink-500 to-rose-600"
+    },
+    {
+      title: "Study Plan",
+      description: "Daily learning schedule",
+      icon: Calendar,
+      href: "/study-plan",
+      color: "from-violet-500 to-purple-600"
+    },
+    {
+      title: "Guidance",
+      description: "AI-powered recommendations",
+      icon: Compass,
+      href: "/guidance",
+      color: "from-cyan-500 to-blue-600"
+    },
+    {
+      title: "Analytics",
+      description: "Track your performance",
+      icon: BarChart3,
+      href: "/analytics",
+      color: "from-amber-500 to-orange-600"
+    },
+    {
       title: "Roadmap",
-      description: "Follow your personalized learning path",
+      description: "Your learning path",
       icon: Map,
       href: "/roadmap",
-      color: "from-orange-500 to-red-600"
+      color: "from-red-500 to-pink-600"
+    },
+    {
+      title: "Profile",
+      description: "View progress and weak topics",
+      icon: User,
+      href: "/profile",
+      color: "from-blue-500 to-indigo-600"
     },
     {
       title: "Settings",
-      description: "Manage your preferences and profile",
+      description: "Manage preferences",
       icon: SettingsIcon,
       href: "/settings",
       color: "from-slate-500 to-gray-600"
@@ -130,10 +171,10 @@ export default function DashboardPage() {
   ];
 
   const quickActions = [
-    { icon: Calendar, label: "Daily Goals", value: "3/5 completed" },
-    { icon: Target, label: "Weekly Target", value: "85%" },
-    { icon: Zap, label: "Streak", value: "24 days" },
-    { icon: TrendingUp, label: "Progress", value: "+12%" },
+    { icon: Target, label: "Topics Done", value: stats.completed.toString(), color: "text-emerald-500", bg: "bg-emerald-500/10" },
+    { icon: Trophy, label: "Avg Score", value: `${stats.avgScore}%`, color: "text-amber-500", bg: "bg-amber-500/10" },
+    { icon: Zap, label: "Streak", value: `${stats.streak} days`, color: "text-pink-500", bg: "bg-pink-500/10" },
+    { icon: ClipboardList, label: "Assessments", value: stats.assignments.toString(), color: "text-violet-500", bg: "bg-violet-500/10" },
   ];
 
   if (loading) {
@@ -239,19 +280,19 @@ export default function DashboardPage() {
             const Icon = action.icon;
             return (
               <div key={i} className="rounded-xl border border-border bg-card/50 backdrop-blur-sm p-4 flex items-center gap-3">
-                <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                  <Icon className="h-5 w-5 text-primary" />
+                <div className={`h-10 w-10 rounded-lg ${action.bg} flex items-center justify-center`}>
+                  <Icon className={`h-5 w-5 ${action.color}`} />
                 </div>
                 <div>
                   <p className="text-xs text-muted-foreground">{action.label}</p>
-                  <p className="text-sm font-bold text-foreground">{action.value}</p>
+                  <p className="text-lg font-bold text-foreground">{action.value}</p>
                 </div>
               </div>
             );
           })}
         </motion.div>
 
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 mb-8">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mb-8">
           {sections.map((section, index) => {
             const Icon = section.icon;
             return (
@@ -259,14 +300,14 @@ export default function DashboardPage() {
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 + index * 0.1 }}
+                transition={{ delay: 0.2 + index * 0.05 }}
               >
                 <Link href={section.href}>
                   <div className="group h-full rounded-2xl border border-border bg-card/50 backdrop-blur-sm p-6 transition-all hover:border-primary/30 hover:bg-card/80 hover:shadow-lg hover:shadow-primary/5">
                     <div className={`mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br ${section.color} shadow-lg transition-transform group-hover:scale-110 group-hover:rotate-3`}>
                       <Icon className="h-6 w-6 text-white" />
                     </div>
-                    <h3 className="mb-2 text-xl font-bold text-foreground group-hover:text-primary transition-colors">{section.title}</h3>
+                    <h3 className="mb-2 text-lg font-bold text-foreground group-hover:text-primary transition-colors">{section.title}</h3>
                     <p className="text-sm text-muted-foreground">{section.description}</p>
                   </div>
                 </Link>
