@@ -8,7 +8,7 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-white/5 bg-[#0a0a0f]">
+    <footer className="border-t border-border bg-background">
       <div className="mx-auto max-w-7xl px-6 py-12 lg:px-8">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
           <div className="space-y-4">
@@ -23,27 +23,27 @@ export function Footer() {
                 Shrivasta AI
               </span>
             </Link>
-            <p className="text-sm text-white/50 max-w-xs">
+            <p className="text-sm text-muted-foreground max-w-xs">
               Empowering students with AI-driven learning paths, assessments, and personalized guidance for a brighter future.
             </p>
             <div className="flex gap-4">
-              <Link href="#" className="text-white/40 hover:text-emerald-400 transition-colors">
+              <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
                 <Github className="h-5 w-5" />
               </Link>
-              <Link href="#" className="text-white/40 hover:text-emerald-400 transition-colors">
+              <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
                 <Twitter className="h-5 w-5" />
               </Link>
-              <Link href="#" className="text-white/40 hover:text-emerald-400 transition-colors">
+              <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
                 <Linkedin className="h-5 w-5" />
               </Link>
             </div>
             <div className="flex items-center gap-4 pt-2">
-              <div className="flex items-center gap-1.5 text-xs text-white/40">
-                <Shield className="h-3.5 w-3.5 text-emerald-500/60" />
+              <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                <Shield className="h-3.5 w-3.5 text-primary/60" />
                 <span>Secure</span>
               </div>
-              <div className="flex items-center gap-1.5 text-xs text-white/40">
-                <Lock className="h-3.5 w-3.5 text-emerald-500/60" />
+              <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                <Lock className="h-3.5 w-3.5 text-primary/60" />
                 <span>Encrypted</span>
               </div>
             </div>
@@ -56,7 +56,7 @@ export function Footer() {
                
                return (
                  <div key={category}>
-                   <h3 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">
+                   <h3 className="text-sm font-semibold text-foreground uppercase tracking-wider mb-4">
                      {category}
                    </h3>
                    <ul className="space-y-3">
@@ -64,9 +64,9 @@ export function Footer() {
                        <li key={link.name}>
                          <Link 
                            href={link.href} 
-                           className="text-sm text-white/50 hover:text-emerald-400 transition-colors flex items-center gap-2 group"
+                           className="text-sm text-muted-foreground hover:text-primary transition-colors flex items-center gap-2 group"
                          >
-                           <span className="opacity-0 -ml-3 group-hover:opacity-100 group-hover:ml-0 transition-all text-emerald-400">›</span>
+                           <span className="opacity-0 -ml-3 group-hover:opacity-100 group-hover:ml-0 transition-all text-primary">›</span>
                            {link.name}
                          </Link>
                        </li>
@@ -78,17 +78,17 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 border-t border-white/5 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="mt-12 border-t border-border pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
-            <Sparkles className="h-4 w-4 text-emerald-400" />
-            <p className="text-sm text-white/50">
+            <Sparkles className="h-4 w-4 text-primary" />
+            <p className="text-sm text-muted-foreground">
               © {currentYear} Shrivasta AI Intelligence Layer. All rights reserved.
             </p>
           </div>
-          <div className="flex gap-6 text-sm text-white/50">
-            <Link href="/privacy" className="hover:text-emerald-400 transition-colors">Privacy Policy</Link>
-            <Link href="/terms" className="hover:text-emerald-400 transition-colors">Terms of Service</Link>
-            <Link href="/cookies" className="hover:text-emerald-400 transition-colors">Cookie Policy</Link>
+          <div className="flex gap-6 text-sm text-muted-foreground">
+            <Link href="/privacy" className="hover:text-primary transition-colors">Privacy Policy</Link>
+            <Link href="/terms" className="hover:text-primary transition-colors">Terms of Service</Link>
+            <Link href="/cookies" className="hover:text-primary transition-colors">Cookie Policy</Link>
           </div>
         </div>
       </div>

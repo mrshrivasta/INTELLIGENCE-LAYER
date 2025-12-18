@@ -3,8 +3,6 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
-import { sampleUserProfile } from "@/lib/sample-data";
 import {
   Brain,
   BarChart3,
@@ -37,33 +35,52 @@ import { AIChatbot } from "@/components/AIChatbot";
 import { NotificationPanel } from "@/components/NotificationPanel";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useTheme } from "@/components/ThemeProvider";
+import { createClient } from "@/lib/supabase/client";
+
+interface UserProfile {
+  id: string;
+  full_name: string | null;
+  email: string;
+  field_of_interest: string | null;
+  target_role: string | null;
+  onboarding_completed: boolean;
+}
 
 export default function HomePage() {
-  const [profile] = useState(sampleUserProfile);
+  const { theme, toggleTheme } = useTheme();
   const [voiceActive, setVoiceActive] = useState(false);
   const [aiInsight, setAiInsight] = useState("Analyzing your learning patterns...");
   const [showChatbot, setShowChatbot] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
-  const [theme, setTheme] = useState<"dark" | "light">("dark");
+  const [profile, setProfile] = useState<UserProfile | null>(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    const stored = localStorage.getItem("theme") as "dark" | "light";
-    if (stored) {
-      setTheme(stored);
-      document.documentElement.classList.toggle("dark", stored === "dark");
-    }
+    loadUserProfile();
   }, []);
 
-  const toggleTheme = () => {
-    const newTheme = theme === "dark" ? "light" : "dark";
-    setTheme(newTheme);
-    localStorage.setItem("theme", newTheme);
-    document.documentElement.classList.toggle("dark", newTheme === "dark");
-  };
+  async function loadUserProfile() {
+    const supabase = createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+    
+    if (user) {
+      setIsLoggedIn(true);
+      const { data: profileData } = await supabase
+        .from("user_profiles")
+        .select("*")
+        .eq("id", user.id)
+        .single();
+      
+      if (profileData) {
+        setProfile(profileData);
+      }
+    }
+  }
 
   const insights = [
-    "Your React skills improved 23% this week - keep it up!",
-    "AI recommends focusing on TypeScript next",
+    "Your skills improved 23% this week - keep it up!",
+    "AI recommends focusing on your weak areas",
     "3 new learning paths match your interests",
     "You're in top 15% of learners this month",
     "New AI-powered assessment available",
@@ -136,12 +153,15 @@ export default function HomePage() {
     { icon: CheckCircle2, text: "GDPR Compliant" },
   ];
 
+  const displayName = profile?.full_name || "Student";
+  const displayRole = profile?.target_role || profile?.field_of_interest || "Learner";
+
   return (
-    <div className="min-h-screen bg-[#0a0a0f] text-white overflow-hidden">
-      <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-violet-900/20 via-transparent to-transparent pointer-events-none" />
-      <div className="fixed inset-0 opacity-30 pointer-events-none" style={{backgroundImage: "radial-gradient(circle at 1px 1px, rgba(156, 146, 172, 0.15) 1px, transparent 0)", backgroundSize: "40px 40px"}} />
+    <div className="min-h-screen bg-background text-foreground overflow-hidden transition-colors duration-300">
+      <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent pointer-events-none" />
+      <div className="fixed inset-0 opacity-30 pointer-events-none" style={{backgroundImage: "radial-gradient(circle at 1px 1px, currentColor 1px, transparent 0)", backgroundSize: "40px 40px", color: "var(--muted-foreground)", opacity: 0.05}} />
       
-      <header className="sticky top-0 z-50 border-b border-white/5 bg-[#0a0a0f]/80 backdrop-blur-xl">
+      <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 lg:px-8">
           <div className="flex items-center gap-3">
             <div className="relative">
@@ -151,10 +171,10 @@ export default function HomePage() {
               </div>
             </div>
             <div>
-              <h1 className="text-lg font-bold bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent">
+              <h1 className="text-lg font-bold text-foreground">
                 Shrivasta AI
               </h1>
-              <p className="text-[10px] text-emerald-400/80 font-medium tracking-wide">INTELLIGENCE LAYER</p>
+              <p className="text-[10px] text-primary font-medium tracking-wide">INTELLIGENCE LAYER</p>
             </div>
           </div>
           
@@ -162,16 +182,16 @@ export default function HomePage() {
             <Button
               variant="ghost"
               size="sm"
-              className="text-white/60 hover:text-white hover:bg-white/5 relative"
+              className="text-muted-foreground hover:text-foreground hover:bg-muted relative"
               onClick={() => setShowNotifications(!showNotifications)}
             >
               <Bell className="h-4 w-4" />
-              <span className="absolute top-1 right-1 h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="absolute top-1 right-1 h-2 w-2 rounded-full bg-primary animate-pulse" />
             </Button>
             <Button
               variant="ghost"
               size="sm"
-              className="text-white/60 hover:text-white hover:bg-white/5"
+              className="text-muted-foreground hover:text-foreground hover:bg-muted"
               onClick={() => setShowChatbot(!showChatbot)}
             >
               <MessageSquare className="h-4 w-4" />
@@ -179,20 +199,20 @@ export default function HomePage() {
             <Button
               variant="ghost"
               size="sm"
-              className="text-white/60 hover:text-white hover:bg-white/5"
+              className="text-muted-foreground hover:text-foreground hover:bg-muted"
               onClick={toggleTheme}
               title={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
             >
               {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
             </Button>
             <Link href="/settings">
-              <Button variant="ghost" size="sm" className="text-white/60 hover:text-white hover:bg-white/5">
+              <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground hover:bg-muted">
                 <Settings className="h-4 w-4" />
               </Button>
             </Link>
-            <Link href="/profile">
-              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-emerald-500 to-cyan-500 text-sm font-bold text-white shadow-lg shadow-emerald-500/25 cursor-pointer ring-2 ring-emerald-500/20 hover:ring-emerald-500/40 transition-all">
-                {profile.userId.charAt(0).toUpperCase()}
+            <Link href={isLoggedIn ? "/profile" : "/login"}>
+              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-emerald-500 to-cyan-500 text-sm font-bold text-white shadow-lg shadow-primary/25 cursor-pointer ring-2 ring-primary/20 hover:ring-primary/40 transition-all">
+                {displayName.charAt(0).toUpperCase()}
               </div>
             </Link>
           </div>
@@ -204,9 +224,9 @@ export default function HomePage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="relative isolate overflow-hidden rounded-3xl bg-gradient-to-br from-[#0f1419] via-[#111827] to-[#0f1419] border border-white/5 px-6 pt-16 shadow-2xl shadow-emerald-500/5 sm:px-16 md:pt-24 lg:flex lg:gap-x-20 lg:px-24 lg:pt-0 mb-12"
+          className="relative isolate overflow-hidden rounded-3xl bg-card border border-border px-6 pt-16 shadow-2xl sm:px-16 md:pt-24 lg:flex lg:gap-x-20 lg:px-24 lg:pt-0 mb-12"
         >
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,_var(--tw-gradient-stops))] from-emerald-500/10 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,_var(--tw-gradient-stops))] from-cyan-500/10 via-transparent to-transparent" />
           
           <div className="mx-auto max-w-md text-center lg:mx-0 lg:flex-auto lg:py-24 lg:text-left relative z-10">
@@ -216,10 +236,10 @@ export default function HomePage() {
               transition={{ delay: 0.2 }}
               className="mb-6 flex items-center justify-center lg:justify-start gap-2 flex-wrap"
             >
-              <Badge className="rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-400 border border-emerald-500/20">
-                {profile.targetRole}
+              <Badge className="rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary border border-primary/20">
+                {displayRole}
               </Badge>
-              <Badge className="rounded-full bg-cyan-500/10 px-3 py-1 text-xs font-medium text-cyan-400 border border-cyan-500/20 flex items-center gap-1.5">
+              <Badge className="rounded-full bg-cyan-500/10 px-3 py-1 text-xs font-medium text-cyan-500 border border-cyan-500/20 flex items-center gap-1.5">
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
@@ -232,12 +252,12 @@ export default function HomePage() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
-              className="text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl"
+              className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl"
             >
               Welcome back,
               <br />
               <span className="bg-gradient-to-r from-emerald-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent">
-                {profile.userId}
+                {displayName}
               </span>
             </motion.h2>
             
@@ -245,7 +265,7 @@ export default function HomePage() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
-              className="mt-6 text-lg leading-8 text-white/60"
+              className="mt-6 text-lg leading-8 text-muted-foreground"
             >
               {aiInsight || "Analyzing your learning patterns..."}
             </motion.p>
@@ -256,19 +276,19 @@ export default function HomePage() {
               transition={{ delay: 0.5 }}
               className="mt-10 flex items-center justify-center gap-4 lg:justify-start flex-wrap"
             >
-              <Link href="/dashboard">
-                <Button size="lg" className="bg-gradient-to-r from-emerald-500 to-cyan-500 text-white hover:from-emerald-600 hover:to-cyan-600 font-semibold shadow-lg shadow-emerald-500/25 border-0">
-                  Go to Dashboard
+              <Link href={isLoggedIn ? "/dashboard" : "/login"}>
+                <Button size="lg" className="bg-gradient-to-r from-emerald-500 to-cyan-500 text-white hover:from-emerald-600 hover:to-cyan-600 font-semibold shadow-lg shadow-primary/25 border-0">
+                  {isLoggedIn ? "Go to Dashboard" : "Get Started"}
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </Link>
               <Button
                 size="lg"
                 variant="outline"
-                className="border-white/10 bg-white/5 text-white hover:bg-white/10 backdrop-blur-sm"
+                className="border-border bg-muted/50 text-foreground hover:bg-muted backdrop-blur-sm"
                 onClick={() => setVoiceActive(!voiceActive)}
               >
-                {voiceActive ? <Volume2 className="mr-2 h-4 w-4 text-emerald-400" /> : <Mic className="mr-2 h-4 w-4" />}
+                {voiceActive ? <Volume2 className="mr-2 h-4 w-4 text-primary" /> : <Mic className="mr-2 h-4 w-4" />}
                 {voiceActive ? "Listening..." : "Voice Assistant"}
               </Button>
             </motion.div>
@@ -282,8 +302,8 @@ export default function HomePage() {
               {securityFeatures.map((feature, i) => {
                 const Icon = feature.icon;
                 return (
-                  <div key={i} className="flex items-center gap-2 text-xs text-white/40">
-                    <Icon className="h-3.5 w-3.5 text-emerald-500/60" />
+                  <div key={i} className="flex items-center gap-2 text-xs text-muted-foreground">
+                    <Icon className="h-3.5 w-3.5 text-primary/60" />
                     <span>{feature.text}</span>
                   </div>
                 );
@@ -293,18 +313,18 @@ export default function HomePage() {
           
           <div className="hidden lg:flex lg:items-center lg:justify-center lg:flex-1 relative">
             <div className="relative w-80 h-80">
-              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-emerald-500/20 to-cyan-500/20 blur-3xl animate-pulse" />
-              <div className="absolute inset-8 rounded-full bg-gradient-to-br from-emerald-500/10 to-cyan-500/10 border border-white/5 flex items-center justify-center">
-                <Brain className="h-24 w-24 text-emerald-400/30" />
+              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary/20 to-cyan-500/20 blur-3xl animate-pulse" />
+              <div className="absolute inset-8 rounded-full bg-gradient-to-br from-primary/10 to-cyan-500/10 border border-border flex items-center justify-center">
+                <Brain className="h-24 w-24 text-primary/30" />
               </div>
-              <div className="absolute top-4 right-8 p-3 rounded-xl bg-[#111827] border border-white/5 shadow-xl">
-                <TrendingUp className="h-5 w-5 text-emerald-400" />
+              <div className="absolute top-4 right-8 p-3 rounded-xl bg-card border border-border shadow-xl">
+                <TrendingUp className="h-5 w-5 text-primary" />
               </div>
-              <div className="absolute bottom-8 left-4 p-3 rounded-xl bg-[#111827] border border-white/5 shadow-xl">
-                <Target className="h-5 w-5 text-cyan-400" />
+              <div className="absolute bottom-8 left-4 p-3 rounded-xl bg-card border border-border shadow-xl">
+                <Target className="h-5 w-5 text-cyan-500" />
               </div>
-              <div className="absolute top-1/2 -right-4 p-3 rounded-xl bg-[#111827] border border-white/5 shadow-xl">
-                <BookOpen className="h-5 w-5 text-pink-400" />
+              <div className="absolute top-1/2 -right-4 p-3 rounded-xl bg-card border border-border shadow-xl">
+                <BookOpen className="h-5 w-5 text-pink-500" />
               </div>
             </div>
           </div>
@@ -324,12 +344,12 @@ export default function HomePage() {
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.3 + i * 0.1 }}
-                className="group relative overflow-hidden rounded-2xl border border-white/5 bg-[#111827]/50 backdrop-blur-sm p-6 transition-all hover:border-white/10 hover:bg-[#111827]/80"
+                className="group relative overflow-hidden rounded-2xl border border-border bg-card/50 backdrop-blur-sm p-6 transition-all hover:border-primary/30 hover:bg-card/80"
               >
                 <div className={`absolute inset-0 bg-gradient-to-br ${stat.bg} opacity-0 group-hover:opacity-100 transition-opacity`} />
                 <Icon className={`h-8 w-8 ${stat.color} mb-4 relative z-10`} />
-                <p className="text-3xl font-bold text-white mb-1 relative z-10">{stat.value}</p>
-                <p className="text-sm font-medium text-white/50 relative z-10">{stat.label}</p>
+                <p className="text-3xl font-bold text-foreground mb-1 relative z-10">{stat.value}</p>
+                <p className="text-sm font-medium text-muted-foreground relative z-10">{stat.label}</p>
               </motion.div>
             );
           })}
@@ -343,13 +363,13 @@ export default function HomePage() {
         >
           <div className="mb-8 flex items-end justify-between">
             <div>
-              <h3 className="text-2xl font-bold text-white mb-2 flex items-center gap-2">
-                <Sparkles className="h-5 w-5 text-emerald-400" />
+              <h3 className="text-2xl font-bold text-foreground mb-2 flex items-center gap-2">
+                <Sparkles className="h-5 w-5 text-primary" />
                 AI Tools
               </h3>
-              <p className="text-white/50">Explore your personalized AI-powered learning suite</p>
+              <p className="text-muted-foreground">Explore your personalized AI-powered learning suite</p>
             </div>
-            <Link href="/features" className="text-sm font-semibold text-emerald-400 hover:text-emerald-300 hidden sm:block transition-colors">
+            <Link href="/features" className="text-sm font-semibold text-primary hover:text-primary/80 hidden sm:block transition-colors">
               View all features &rarr;
             </Link>
           </div>
@@ -365,14 +385,14 @@ export default function HomePage() {
                   transition={{ delay: 0.5 + i * 0.1 }}
                 >
                   <Link href={feature.href}>
-                    <div className="group h-full rounded-2xl border border-white/5 bg-[#111827]/50 backdrop-blur-sm p-6 transition-all hover:border-white/10 hover:bg-[#111827]/80 hover:shadow-lg hover:shadow-emerald-500/5">
+                    <div className="group h-full rounded-2xl border border-border bg-card/50 backdrop-blur-sm p-6 transition-all hover:border-primary/30 hover:bg-card/80 hover:shadow-lg hover:shadow-primary/5">
                       <div className={`mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br ${feature.gradient} text-white shadow-lg transition-transform group-hover:scale-110 group-hover:rotate-3`}>
                         <Icon className="h-6 w-6" />
                       </div>
-                      <h4 className="text-lg font-bold text-white mb-2 group-hover:text-emerald-400 transition-colors">
+                      <h4 className="text-lg font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
                         {feature.title}
                       </h4>
-                      <p className="text-sm text-white/50 leading-relaxed">
+                      <p className="text-sm text-muted-foreground leading-relaxed">
                         {feature.desc}
                       </p>
                     </div>
@@ -387,32 +407,32 @@ export default function HomePage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
-          className="relative overflow-hidden rounded-2xl border border-white/5 bg-[#111827]/50 backdrop-blur-sm p-8"
+          className="relative overflow-hidden rounded-2xl border border-border bg-card/50 backdrop-blur-sm p-8"
         >
-          <div className="absolute top-0 right-0 -mt-4 -mr-4 h-40 w-40 rounded-full bg-gradient-to-br from-emerald-500/10 to-cyan-500/10 blur-3xl" />
+          <div className="absolute top-0 right-0 -mt-4 -mr-4 h-40 w-40 rounded-full bg-gradient-to-br from-primary/10 to-cyan-500/10 blur-3xl" />
           
           <div className="relative">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-4">
               <div>
                 <div className="flex items-center gap-2 mb-1">
-                  <h4 className="text-xl font-bold text-white">Current Focus</h4>
-                  <Badge className="border-emerald-500/20 text-emerald-400 bg-emerald-500/10">High Priority</Badge>
+                  <h4 className="text-xl font-bold text-foreground">Current Focus</h4>
+                  <Badge className="border-primary/20 text-primary bg-primary/10">High Priority</Badge>
                 </div>
-                <p className="text-white/50">React Advanced Patterns & Performance</p>
+                <p className="text-muted-foreground">{profile?.field_of_interest || "Start your learning journey"}</p>
               </div>
-              <Link href="/overview">
-                <Button variant="outline" className="border-white/10 bg-white/5 text-white hover:bg-white/10">
-                  Continue Learning <ArrowRight className="ml-2 h-4 w-4" />
+              <Link href={isLoggedIn ? "/overview" : "/signup"}>
+                <Button variant="outline" className="border-border bg-muted/50 text-foreground hover:bg-muted">
+                  {isLoggedIn ? "Continue Learning" : "Sign Up"} <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </Link>
             </div>
             
             <div className="space-y-2">
               <div className="flex justify-between text-sm font-medium">
-                <span className="text-white/70">Progress</span>
-                <span className="text-emerald-400">67%</span>
+                <span className="text-muted-foreground">Progress</span>
+                <span className="text-primary">67%</span>
               </div>
-              <div className="h-3 bg-white/5 rounded-full overflow-hidden">
+              <div className="h-3 bg-muted rounded-full overflow-hidden">
                 <motion.div 
                   initial={{ width: 0 }}
                   animate={{ width: "67%" }}
@@ -420,7 +440,7 @@ export default function HomePage() {
                   className="h-full bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-full"
                 />
               </div>
-              <div className="flex justify-between text-xs text-white/40 mt-2">
+              <div className="flex justify-between text-xs text-muted-foreground mt-2">
                 <span>12 of 18 modules completed</span>
                 <span>Est. 2 weeks remaining</span>
               </div>
