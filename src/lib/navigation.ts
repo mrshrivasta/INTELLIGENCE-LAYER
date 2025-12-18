@@ -21,11 +21,15 @@ import {
   Shield,
   Cookie,
   Briefcase,
+  BookOpen,
+  Search,
+  ActivityIcon,
 } from "lucide-react";
 
 export const navigationLinks = [
   { name: "Home", href: "/", icon: Home, category: "Main" },
   { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard, category: "Main" },
+  { name: "Search", href: "/search", icon: Search, category: "Main" },
   { name: "Overview", href: "/overview", icon: Activity, category: "Learning" },
   { name: "Analytics", href: "/analytics", icon: BarChart3, category: "Learning" },
   { name: "Assessment", href: "/assessment", icon: FileQuestion, category: "Learning" },
@@ -35,8 +39,12 @@ export const navigationLinks = [
   { name: "About", href: "/about", icon: Info, category: "Info" },
   { name: "How It Works", href: "/how-it-works", icon: CheckCircle, category: "Info" },
   { name: "Contact", href: "/contact", icon: Mail, category: "Info" },
+  { name: "Reviews", href: "/reviews", icon: Star, category: "Info" },
+  { name: "Developer", href: "/developer", icon: Users, category: "Info" },
   { name: "Help", href: "/help", icon: HelpCircle, category: "Support" },
-  { name: "FAQ", href: "/help", icon: MessageSquare, category: "Support" },
+  { name: "FAQ", href: "/faq", icon: MessageSquare, category: "Support" },
+  { name: "Documentation", href: "/docs", icon: BookOpen, category: "Support" },
+  { name: "Status", href: "/status", icon: ActivityIcon, category: "Support" },
   { name: "Profile", href: "/profile", icon: Users, category: "Account" },
   { name: "Settings", href: "/settings", icon: Settings, category: "Account" },
   { name: "Onboarding", href: "/onboarding", icon: Target, category: "Account" },
@@ -49,7 +57,6 @@ export const navigationLinks = [
   { name: "Cookie Policy", href: "/cookies", icon: Cookie, category: "Legal" },
   { name: "Security", href: "/security", icon: Lock, category: "Legal" },
   { name: "Admin", href: "/admin", icon: Briefcase, category: "Admin" },
-  { name: "Developer", href: "/developer", icon: Users, category: "Info" },
 ];
 
 export const categories = ["Main", "Learning", "Info", "Support", "Account", "Auth", "Legal", "Admin"];
