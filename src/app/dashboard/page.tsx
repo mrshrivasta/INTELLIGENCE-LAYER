@@ -34,6 +34,13 @@ import {
   Clock,
   Layers,
   Timer,
+  Bookmark,
+  FolderKanban,
+  Code2,
+  UserCheck,
+  Library,
+  Gift,
+  TrendingUp as Stats,
 } from "lucide-react";
 import { DeveloperWatermark } from "@/components/DeveloperWatermark";
 import { AIChatbot } from "@/components/AIChatbot";
@@ -128,25 +135,18 @@ export default function DashboardPage() {
       color: "from-emerald-500 to-teal-600"
     },
     {
-      title: "Assignments",
-      description: "Practice quizzes and tests",
-      icon: FileQuestion,
-      href: "/assignments",
-      color: "from-pink-500 to-rose-600"
-    },
-    {
-      title: "Study Plan",
-      description: "Daily learning schedule",
-      icon: Calendar,
-      href: "/study-plan",
-      color: "from-violet-500 to-purple-600"
-    },
-    {
-      title: "Guidance",
-      description: "AI-powered recommendations",
-      icon: Compass,
-      href: "/guidance",
+      title: "Practice",
+      description: "Coding challenges & exercises",
+      icon: Code2,
+      href: "/practice",
       color: "from-cyan-500 to-blue-600"
+    },
+    {
+      title: "Quizzes",
+      description: "Test your knowledge",
+      icon: FileQuestion,
+      href: "/quizzes",
+      color: "from-pink-500 to-rose-600"
     },
     {
       title: "Games",
@@ -156,18 +156,67 @@ export default function DashboardPage() {
       color: "from-fuchsia-500 to-pink-600"
     },
     {
+      title: "Statistics",
+      description: "Track your progress",
+      icon: BarChart3,
+      href: "/statistics",
+      color: "from-emerald-500 to-green-600"
+    },
+    {
+      title: "Projects",
+      description: "Build real projects",
+      icon: FolderKanban,
+      href: "/projects",
+      color: "from-violet-500 to-purple-600"
+    },
+    {
+      title: "Mentors",
+      description: "Get expert guidance",
+      icon: UserCheck,
+      href: "/mentors",
+      color: "from-pink-500 to-rose-600"
+    },
+    {
+      title: "Workshops",
+      description: "Live learning events",
+      icon: Video,
+      href: "/workshops",
+      color: "from-red-500 to-orange-600"
+    },
+    {
+      title: "Resources",
+      description: "Learning materials",
+      icon: Library,
+      href: "/resources",
+      color: "from-orange-500 to-amber-600"
+    },
+    {
+      title: "Rewards",
+      description: "Redeem your XP",
+      icon: Gift,
+      href: "/rewards",
+      color: "from-amber-500 to-yellow-600"
+    },
+    {
       title: "Calendar",
       description: "Schedule study sessions",
-      icon: Clock,
+      icon: Calendar,
       href: "/calendar",
       color: "from-indigo-500 to-blue-600"
+    },
+    {
+      title: "Bookmarks",
+      description: "Saved content",
+      icon: Bookmark,
+      href: "/bookmarks",
+      color: "from-amber-500 to-orange-600"
     },
     {
       title: "Live Sessions",
       description: "Join live classes",
       icon: Video,
       href: "/live-sessions",
-      color: "from-red-500 to-orange-600"
+      color: "from-red-500 to-pink-600"
     },
     {
       title: "Community",
@@ -219,11 +268,25 @@ export default function DashboardPage() {
       color: "from-sky-500 to-blue-600"
     },
     {
-      title: "Analytics",
-      description: "Track your performance",
-      icon: BarChart3,
-      href: "/analytics",
-      color: "from-purple-500 to-violet-600"
+      title: "Guidance",
+      description: "AI recommendations",
+      icon: Compass,
+      href: "/guidance",
+      color: "from-cyan-500 to-blue-600"
+    },
+    {
+      title: "Study Plan",
+      description: "Daily schedule",
+      icon: Target,
+      href: "/study-plan",
+      color: "from-violet-500 to-purple-600"
+    },
+    {
+      title: "Assignments",
+      description: "Practice tests",
+      icon: FileQuestion,
+      href: "/assignments",
+      color: "from-pink-500 to-rose-600"
     },
     {
       title: "Settings",
