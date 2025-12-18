@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -21,21 +21,65 @@ import {
   Calendar,
   Target,
   Zap,
+  Sun,
+  Moon,
 } from "lucide-react";
 import { DeveloperWatermark } from "@/components/DeveloperWatermark";
 import { AIChatbot } from "@/components/AIChatbot";
 import { NotificationPanel } from "@/components/NotificationPanel";
 import Link from "next/link";
-import { supabase } from "@/lib/supabase/client";
+import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
+import { useTheme } from "@/components/ThemeProvider";
+
+interface UserProfile {
+  id: string;
+  full_name: string | null;
+  email: string;
+  field_of_interest: string | null;
+  education_level: string | null;
+  onboarding_completed: boolean;
+}
 
 export default function DashboardPage() {
   const router = useRouter();
+  const { theme, toggleTheme } = useTheme();
   const [showNotifications, setShowNotifications] = useState(false);
   const [showChat, setShowChat] = useState(false);
+  const [profile, setProfile] = useState<UserProfile | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    loadProfile();
+  }, []);
+
+  async function loadProfile() {
+    const supabase = createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+    
+    if (!user) {
+      router.push("/login");
+      return;
+    }
+
+    const { data: profileData } = await supabase
+      .from("user_profiles")
+      .select("*")
+      .eq("id", user.id)
+      .single();
+
+    if (!profileData || !profileData.onboarding_completed) {
+      router.push("/onboarding");
+      return;
+    }
+
+    setProfile(profileData);
+    setLoading(false);
+  }
 
   const handleSignOut = async () => {
+    const supabase = createClient();
     await supabase.auth.signOut();
     router.push("/login");
   };
@@ -92,12 +136,23 @@ export default function DashboardPage() {
     { icon: TrendingUp, label: "Progress", value: "+12%" },
   ];
 
-  return (
-    <div className="min-h-screen bg-[#0a0a0f] text-white overflow-hidden">
-      <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-emerald-900/20 via-transparent to-transparent pointer-events-none" />
-      <div className="fixed inset-0 opacity-30 pointer-events-none" style={{backgroundImage: "radial-gradient(circle at 1px 1px, rgba(156, 146, 172, 0.15) 1px, transparent 0)", backgroundSize: "40px 40px"}} />
+  if (loading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-background">
+        <div className="text-center">
+          <GraduationCap className="mx-auto h-12 w-12 animate-pulse text-primary" />
+          <p className="mt-4 text-muted-foreground font-medium">Loading dashboard...</p>
+        </div>
+      </div>
+    );
+  }
 
-      <header className="sticky top-0 z-50 border-b border-white/5 bg-[#0a0a0f]/80 backdrop-blur-xl">
+  return (
+    <div className="min-h-screen bg-background text-foreground overflow-hidden transition-colors duration-300">
+      <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent pointer-events-none" />
+      <div className="fixed inset-0 opacity-30 pointer-events-none dark:opacity-20" style={{backgroundImage: "radial-gradient(circle at 1px 1px, currentColor 1px, transparent 0)", backgroundSize: "40px 40px", color: "var(--muted-foreground)", opacity: 0.1}} />
+
+      <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-xl">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           <Link href="/" className="flex items-center gap-3">
             <div className="relative">
@@ -107,26 +162,34 @@ export default function DashboardPage() {
               </div>
             </div>
             <div>
-              <h1 className="text-lg font-bold bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent">
+              <h1 className="text-lg font-bold text-foreground">
                 Shrivasta AI
               </h1>
-              <p className="text-[10px] text-emerald-400/80 font-medium tracking-wide">DASHBOARD</p>
+              <p className="text-[10px] text-primary font-medium tracking-wide">DASHBOARD</p>
             </div>
           </Link>
           <div className="flex items-center gap-2">
             <Button
               variant="ghost"
               size="sm"
-              className="text-white/60 hover:text-white hover:bg-white/5 relative"
-              onClick={() => setShowNotifications(!showNotifications)}
+              className="text-muted-foreground hover:text-foreground hover:bg-muted"
+              onClick={toggleTheme}
             >
-              <Bell className="h-4 w-4" />
-              <span className="absolute top-1 right-1 h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+              {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
             </Button>
             <Button
               variant="ghost"
               size="sm"
-              className="text-white/60 hover:text-white hover:bg-white/5"
+              className="text-muted-foreground hover:text-foreground hover:bg-muted relative"
+              onClick={() => setShowNotifications(!showNotifications)}
+            >
+              <Bell className="h-4 w-4" />
+              <span className="absolute top-1 right-1 h-2 w-2 rounded-full bg-primary animate-pulse" />
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="text-muted-foreground hover:text-foreground hover:bg-muted"
               onClick={() => setShowChat(!showChat)}
             >
               <MessageSquare className="h-4 w-4" />
@@ -134,7 +197,7 @@ export default function DashboardPage() {
             <Button 
               variant="ghost" 
               size="sm" 
-              className="text-white/60 hover:text-white hover:bg-white/5" 
+              className="text-muted-foreground hover:text-foreground hover:bg-muted" 
               onClick={handleSignOut}
             >
               <LogOut className="h-4 w-4" />
@@ -151,14 +214,18 @@ export default function DashboardPage() {
           className="mb-8"
         >
           <div className="flex items-center gap-2 mb-2">
-            <h2 className="text-3xl font-bold text-white">Welcome Back!</h2>
-            <Badge className="bg-emerald-500/10 text-emerald-400 border-emerald-500/20">
+            <h2 className="text-3xl font-bold text-foreground">
+              Welcome, {profile?.full_name || "Student"}!
+            </h2>
+            <Badge className="bg-primary/10 text-primary border-primary/20">
               <Shield className="h-3 w-3 mr-1" />
               Secure
             </Badge>
           </div>
-          <p className="text-lg text-white/60">
-            Choose a section to continue your learning journey
+          <p className="text-lg text-muted-foreground">
+            {profile?.field_of_interest 
+              ? `Continue your journey in ${profile.field_of_interest}` 
+              : "Choose a section to continue your learning journey"}
           </p>
         </motion.div>
 
@@ -171,13 +238,13 @@ export default function DashboardPage() {
           {quickActions.map((action, i) => {
             const Icon = action.icon;
             return (
-              <div key={i} className="rounded-xl border border-white/5 bg-[#111827]/50 backdrop-blur-sm p-4 flex items-center gap-3">
-                <div className="h-10 w-10 rounded-lg bg-emerald-500/10 flex items-center justify-center">
-                  <Icon className="h-5 w-5 text-emerald-400" />
+              <div key={i} className="rounded-xl border border-border bg-card/50 backdrop-blur-sm p-4 flex items-center gap-3">
+                <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                  <Icon className="h-5 w-5 text-primary" />
                 </div>
                 <div>
-                  <p className="text-xs text-white/50">{action.label}</p>
-                  <p className="text-sm font-bold text-white">{action.value}</p>
+                  <p className="text-xs text-muted-foreground">{action.label}</p>
+                  <p className="text-sm font-bold text-foreground">{action.value}</p>
                 </div>
               </div>
             );
@@ -195,12 +262,12 @@ export default function DashboardPage() {
                 transition={{ delay: 0.2 + index * 0.1 }}
               >
                 <Link href={section.href}>
-                  <div className="group h-full rounded-2xl border border-white/5 bg-[#111827]/50 backdrop-blur-sm p-6 transition-all hover:border-white/10 hover:bg-[#111827]/80 hover:shadow-lg hover:shadow-emerald-500/5">
+                  <div className="group h-full rounded-2xl border border-border bg-card/50 backdrop-blur-sm p-6 transition-all hover:border-primary/30 hover:bg-card/80 hover:shadow-lg hover:shadow-primary/5">
                     <div className={`mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br ${section.color} shadow-lg transition-transform group-hover:scale-110 group-hover:rotate-3`}>
                       <Icon className="h-6 w-6 text-white" />
                     </div>
-                    <h3 className="mb-2 text-xl font-bold text-white group-hover:text-emerald-400 transition-colors">{section.title}</h3>
-                    <p className="text-sm text-white/50">{section.description}</p>
+                    <h3 className="mb-2 text-xl font-bold text-foreground group-hover:text-primary transition-colors">{section.title}</h3>
+                    <p className="text-sm text-muted-foreground">{section.description}</p>
                   </div>
                 </Link>
               </motion.div>
@@ -212,7 +279,7 @@ export default function DashboardPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
-          className="rounded-2xl bg-gradient-to-r from-emerald-600/90 to-cyan-600/90 p-6 text-white shadow-xl shadow-emerald-500/10 border border-white/10"
+          className="rounded-2xl bg-gradient-to-r from-emerald-600/90 to-cyan-600/90 p-6 text-white shadow-xl shadow-primary/10 border border-white/10"
         >
           <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
             <div className="flex items-center gap-4">
