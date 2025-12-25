@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { VisualEditsMessenger } from "orchids-visual-edits";
 import { Footer } from "@/components/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
 
@@ -16,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Shrivasta AI - Intelligence Layer for Education",
-  description: "AI-powered learning guidance, assessments, and personalized roadmaps for education and career development. Created by Karanam Shrivasta.",
+  title: "AI Intelligence Layer - Advanced Learning Platform",
+  description: "AI-powered learning guidance, assessments, and personalized roadmaps for education and career development.",
   icons: {
     icon: "/favicon.svg",
   },
@@ -60,7 +59,6 @@ export default function RootLayout({
           </div>
           <Footer />
         </ThemeProvider>
-        <VisualEditsMessenger />
       </body>
     </html>
   );

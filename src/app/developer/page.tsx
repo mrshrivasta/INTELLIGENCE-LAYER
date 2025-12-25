@@ -55,9 +55,9 @@ export default function DeveloperPage() {
               </div>
             </div>
             <div>
-              <h1 className="text-lg font-bold bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent">
-                Shrivasta AI
-              </h1>
+                <h1 className="text-lg font-bold bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent">
+                  AI Intelligence Layer
+                </h1>
               <p className="text-[10px] text-emerald-400/80 font-medium tracking-wide">INTELLIGENCE LAYER</p>
             </div>
           </Link>
@@ -190,11 +190,11 @@ export default function DeveloperPage() {
             })}
           </div>
 
-          <div className="mt-8 text-center">
-            <p className="text-white/40 text-sm">
-              Creator of <span className="text-emerald-400 font-semibold">Shrivasta AI</span> - Empowering students with intelligent learning solutions
-            </p>
-          </div>
+            <div className="mt-8 text-center">
+              <p className="text-white/40 text-sm">
+                Creator of <span className="text-emerald-400 font-semibold">AI Intelligence Layer</span> - Empowering students with intelligent learning solutions
+              </p>
+            </div>
         </motion.div>
       </main>
 

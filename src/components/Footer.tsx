@@ -20,7 +20,7 @@ export function Footer() {
                 </div>
               </div>
               <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 to-cyan-400">
-                Shrivasta AI
+                AI Intelligence Layer
               </span>
             </Link>
             <p className="text-sm text-muted-foreground max-w-xs">
@@ -82,7 +82,7 @@ export function Footer() {
           <div className="flex items-center gap-2">
             <Sparkles className="h-4 w-4 text-primary" />
             <p className="text-sm text-muted-foreground">
-              © {currentYear} Shrivasta AI Intelligence Layer. All rights reserved.
+              © {currentYear} AI Intelligence Layer. All rights reserved.
             </p>
           </div>
           <div className="flex gap-6 text-sm text-muted-foreground">
