@@ -13,7 +13,7 @@ export default function HomeLandingPage() {
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center gap-2">
               <Brain className="w-8 h-8 text-purple-400" />
-              <span className="text-white font-bold text-xl">AI Intelligence Layer</span>
+              <span className="text-white font-bold text-xl">Shrivasta AI</span>
             </div>
             <div className="flex items-center gap-4">
               <Link href="/about"><Button variant="ghost" className="text-white">About</Button></Link>
@@ -94,7 +94,7 @@ export default function HomeLandingPage() {
 
       <footer className="border-t border-white/10 py-8 px-4 bg-black/20">
         <div className="max-w-7xl mx-auto text-center text-gray-400">
-          <p>&copy; 2025 AI Intelligence Layer. All rights reserved.</p>
+          <p>&copy; 2025 Shrivasta AI. All rights reserved.</p>
           <div className="flex gap-4 justify-center mt-4">
             <Link href="/privacy" className="hover:text-white">Privacy</Link>
             <Link href="/terms" className="hover:text-white">Terms</Link>

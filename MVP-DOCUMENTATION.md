@@ -1,4 +1,4 @@
-# AI Intelligence Layer - MVP Documentation
+# Shrivasta AI - MVP Documentation
 
 ## 1. MVP Scope
 

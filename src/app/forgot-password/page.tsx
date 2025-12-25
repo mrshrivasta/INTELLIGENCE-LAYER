@@ -39,7 +39,7 @@ export default function ForgotPasswordPage() {
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-violet-600 to-fuchsia-600 shadow-lg">
               <Brain className="h-6 w-6 text-white" />
             </div>
-            <span className="text-lg font-bold text-slate-900">AI Intelligence Layer</span>
+            <span className="text-lg font-bold text-slate-900">Shrivasta AI</span>
           </Link>
         </div>
       </header>

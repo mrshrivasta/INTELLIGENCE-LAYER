@@ -13,7 +13,7 @@ export default function AboutPage() {
           <div className="flex items-center justify-between h-16">
             <Link href="/home" className="flex items-center gap-2">
               <Brain className="w-8 h-8 text-indigo-600" />
-              <span className="font-bold text-xl">AI Intelligence Layer</span>
+              <span className="font-bold text-xl">Shrivasta AI</span>
             </Link>
             <div className="flex items-center gap-4">
               <Link href="/home"><Button variant="ghost">Home</Button></Link>
@@ -37,7 +37,7 @@ export default function AboutPage() {
           <div>
             <h2 className="text-3xl font-bold text-gray-900 mb-4">Our Mission</h2>
             <p className="text-lg text-gray-700 leading-relaxed">
-              We believe every student deserves personalized guidance that adapts to their unique learning style, goals, and pace. Our AI Intelligence Layer transforms education by providing tailored roadmaps, adaptive assessments, and real-time guidance for learners from 10th grade to working professionals.
+              We believe every student deserves personalized guidance that adapts to their unique learning style, goals, and pace. Our Shrivasta AI transforms education by providing tailored roadmaps, adaptive assessments, and real-time guidance for learners from 10th grade to working professionals.
             </p>
           </div>
           <div>

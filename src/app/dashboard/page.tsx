@@ -338,9 +338,9 @@ export default function DashboardPage() {
               </div>
             </div>
             <div>
-              <h1 className="text-lg font-bold text-foreground">
-                AI Intelligence Layer
-              </h1>
+                <h1 className="text-lg font-bold text-foreground">
+                  Shrivasta AI
+                </h1>
               <p className="text-[10px] text-primary font-medium tracking-wide">DASHBOARD</p>
             </div>
           </Link>

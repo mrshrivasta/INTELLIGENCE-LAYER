@@ -193,10 +193,10 @@ export default function DocsPage() {
                 Documentation
               </Badge>
               <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-[var(--text-primary)] to-[var(--text-secondary)] bg-clip-text text-transparent">
-                AI Intelligence Layer Documentation
+                Shrivasta AI Documentation
               </h1>
               <p className="text-lg text-[var(--text-muted)] leading-relaxed">
-                Complete guide to integrating and using the AI Intelligence Layer platform.
+                Complete guide to integrating and using the Shrivasta AI platform.
                 Learn about our APIs, authentication, database schema, and best practices.
               </p>
             </div>

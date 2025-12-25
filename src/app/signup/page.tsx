@@ -77,7 +77,7 @@ export default function SignupPage() {
               </div>
             </div>
             <CardTitle className="text-2xl font-bold text-white">Create Account</CardTitle>
-            <CardDescription className="text-white/50">Join Shrivasta AI Intelligence Layer</CardDescription>
+            <CardDescription className="text-white/50">Join Shrivasta Shrivasta AI</CardDescription>
           </CardHeader>
           
           <form onSubmit={handleSignup}>

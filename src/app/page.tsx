@@ -180,7 +180,7 @@ export default function HomePage() {
             </div>
             <div>
               <h1 className="text-lg font-bold text-foreground">
-                AI Intelligence Layer
+                Shrivasta AI
               </h1>
             </div>
           </div>

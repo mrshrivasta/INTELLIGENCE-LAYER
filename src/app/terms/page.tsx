@@ -28,7 +28,7 @@ export default function TermsPage() {
             <section>
               <h2 className="mb-3 text-2xl font-semibold text-slate-900">1. Acceptance of Terms</h2>
               <p className="text-slate-600">
-                By accessing and using the AI Intelligence Layer platform, you accept and agree to be 
+                By accessing and using the Shrivasta AI platform, you accept and agree to be 
                 bound by the terms and provisions of this agreement. If you do not agree to these terms, 
                 please do not use our platform.
               </p>
@@ -76,7 +76,7 @@ export default function TermsPage() {
               <h2 className="mb-3 text-2xl font-semibold text-slate-900">5. Intellectual Property</h2>
               <p className="text-slate-600">
                 All content on this platform, including but not limited to text, graphics, logos, 
-                assessments, and software, is the property of AI Intelligence Layer and protected by 
+                assessments, and software, is the property of Shrivasta AI and protected by 
                 intellectual property laws. You may not reproduce, distribute, or create derivative works 
                 without our express written permission.
               </p>
@@ -111,7 +111,7 @@ export default function TermsPage() {
             <section>
               <h2 className="mb-3 text-2xl font-semibold text-slate-900">9. Limitation of Liability</h2>
               <p className="text-slate-600">
-                In no event shall AI Intelligence Layer be liable for any indirect, incidental, special, 
+                In no event shall Shrivasta AI be liable for any indirect, incidental, special, 
                 consequential, or punitive damages arising out of your use of the platform.
               </p>
             </section>

@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AI Intelligence Layer - Advanced Learning Platform",
+  title: "Shrivasta AI - Advanced Learning Platform",
   description: "AI-powered learning guidance, assessments, and personalized roadmaps for education and career development.",
   icons: {
     icon: "/favicon.svg",

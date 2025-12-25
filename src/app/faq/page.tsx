@@ -32,8 +32,8 @@ const faqCategories = [
 const faqs = [
   {
     category: "general",
-    question: "What is AI Intelligence Layer?",
-    answer: "AI Intelligence Layer is an intelligent learning platform that uses AI to create personalized learning paths, assessments, and career guidance. It helps students and professionals accelerate their skill development through adaptive learning.",
+    question: "What is Shrivasta AI?",
+    answer: "Shrivasta AI is an intelligent learning platform that uses AI to create personalized learning paths, assessments, and career guidance. It helps students and professionals accelerate their skill development through adaptive learning.",
   },
   {
     category: "general",
@@ -42,7 +42,7 @@ const faqs = [
   },
   {
     category: "general",
-    question: "Who can use AI Intelligence Layer?",
+    question: "Who can use Shrivasta AI?",
     answer: "Anyone looking to learn new skills or advance their career can use our platform. We cater to students, working professionals, career switchers, and lifelong learners.",
   },
   {
@@ -72,7 +72,7 @@ const faqs = [
   },
   {
     category: "pricing",
-    question: "Is AI Intelligence Layer free to use?",
+    question: "Is Shrivasta AI free to use?",
     answer: "We offer a free tier with essential features. Premium plans with advanced features like unlimited assessments and priority support are also available.",
   },
   {
@@ -140,7 +140,7 @@ export default function FAQPage() {
             Frequently Asked Questions
           </h1>
           <p className="text-lg text-[var(--text-muted)]">
-            Find answers to common questions about AI Intelligence Layer
+            Find answers to common questions about Shrivasta AI
           </p>
         </motion.div>
 
